@@ -1,0 +1,10 @@
+.html{
+  background-color: #f4f5f5;
+}
+.container{
+  position: relative;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 960px;
+  min-height: calc(100vh - 64px - 69px);
+}
