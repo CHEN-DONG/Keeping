@@ -1,11 +1,12 @@
-<!-- NG-ZORRO -->
 <nz-layout class="layout">
-  <nz-header>
-
-  </nz-header>
-  <nz-content style="padding:0 50px;">
+  <nz-header class="header">
     <div class="container">
-      <button nz-button nzType="primary">Primary</button>
+      <app-main-header></app-main-header>
+    </div>
+  </nz-header>
+  <nz-content>
+    <div class="container page-container">
+      <router-outlet></router-outlet>
     </div>
   </nz-content>
   <nz-footer style="text-align: center;">Ant Design ©2017 Implement By Angular</nz-footer>

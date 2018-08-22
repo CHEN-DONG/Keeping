@@ -1,0 +1,12 @@
+.main-header{
+  display: flex;
+  justify-content: space-between;
+  .header-nav{
+    line-height: 62px;
+    color: #71777c;
+    font-size: 1.33rem;
+    li{
+      outline: none;
+    }
+  }
+}

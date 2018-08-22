@@ -1,5 +1,6 @@
-.html{
-  background-color: #f4f5f5;
+.header{
+  background-color: #ffffff;
+  border-bottom: 1px solid #f1f1f1;
 }
 .container{
   position: relative;
@@ -7,4 +8,7 @@
   width: 100%;
   max-width: 960px;
   min-height: calc(100vh - 64px - 69px);
+}
+.page-container{
+  margin-top: 3.6rem;
 }

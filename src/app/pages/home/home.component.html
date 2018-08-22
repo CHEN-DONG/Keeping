@@ -1,0 +1,7 @@
+<div class="home-page">
+  <nz-list [nzDataSource]="data" nzBordered [nzHeader]="'Header'" [nzFooter]="'Footer'" [nzRenderItem]="item">
+    <ng-template #item let-item>
+      <nz-list-item [nzContent]="item"></nz-list-item>
+    </ng-template>
+  </nz-list>
+</div>
