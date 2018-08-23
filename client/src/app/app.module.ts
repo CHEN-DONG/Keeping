@@ -12,6 +12,8 @@ import zh from '@angular/common/locales/zh';
 import { MainHeaderComponent } from './components/main-header/main-header.component';
 import { HomeComponent } from './pages/home/home.component';
 import { FrontendComponent } from './pages/frontend/frontend.component';
+import { BackendComponent } from './pages/backend/backend.component';
+import { OthersComponent } from './pages/others/others.component';
 
 registerLocaleData(zh);
 
@@ -20,7 +22,9 @@ registerLocaleData(zh);
     AppComponent,
     MainHeaderComponent,
     HomeComponent,
-    FrontendComponent
+    FrontendComponent,
+    BackendComponent,
+    OthersComponent
   ],
   imports: [
     BrowserModule,
