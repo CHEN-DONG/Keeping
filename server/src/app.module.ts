@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { PostController } from 'controllers/post.controller';
-import { PostService } from 'services/post.service';
-import { Post } from 'entities/post.entity';
+import { Post } from './entities/post.entity';
+import { PostController } from './controllers/post.controller';
+import { PostService } from './services/post.service';
+import { ConfigService } from './services/config.service';
 
 @Module({
   imports: [
@@ -14,11 +15,13 @@ import { Post } from 'entities/post.entity';
       password: '123',
       database: 'keeping',
       entities: [__dirname + '/../**/*.entity{.ts,.js}'],
-      synchronize: true,
+      synchronize: false
     }),
     TypeOrmModule.forFeature([Post])
   ],
   controllers: [PostController],
-  providers: [PostService],
+  providers: [PostService, ConfigService],
 })
-export class AppModule { }
+export class AppModule {
+
+}
