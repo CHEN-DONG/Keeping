@@ -15,7 +15,7 @@ import { ConfigService } from './services/config.service';
       password: '123',
       database: 'keeping',
       entities: [__dirname + '/../**/*.entity{.ts,.js}'],
-      synchronize: false
+      synchronize: true
     }),
     TypeOrmModule.forFeature([Post])
   ],
