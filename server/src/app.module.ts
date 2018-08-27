@@ -4,6 +4,7 @@ import { Post } from './entities/post.entity';
 import { PostController } from './controllers/post.controller';
 import { PostService } from './services/post.service';
 import { ConfigService } from './services/config.service';
+import { UtilService } from './services/util.service';
 
 @Module({
   imports: [
@@ -20,7 +21,7 @@ import { ConfigService } from './services/config.service';
     TypeOrmModule.forFeature([Post])
   ],
   controllers: [PostController],
-  providers: [PostService, ConfigService],
+  providers: [PostService, ConfigService, UtilService],
 })
 export class AppModule {
 

@@ -1,5 +1,4 @@
-export class PostCreateDto {
-  readonly id: number;
+export class Post {
   readonly title: string;
   readonly content: string;
   readonly description: string;
