@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PostService } from '../../services/post.service';
 
 @Component({
   selector: 'app-home',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private postService: PostService
+  ) { }
 
   data = [
     'Racing car sprays burning fuel into crowd.',
@@ -16,8 +19,16 @@ export class HomeComponent implements OnInit {
     'Man charged over missing wedding girl.',
     'Los Angeles battles huge wildfires.'
   ];
+  getPosts() {
+    this.postService.getList()
+      .subscribe(result => {
+
+      })
+  }
 
   ngOnInit() {
+    this.getPosts();
+
   }
 
 }

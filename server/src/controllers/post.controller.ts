@@ -4,7 +4,7 @@ import { PostCreateDto } from "../dtos/post-create.dto";
 import { UtilService } from "../services/util.service";
 
 
-@Controller()
+@Controller('post')
 export class PostController {
   constructor(
     private readonly postServeice: PostService,
