@@ -11,7 +11,7 @@ export class PostService {
     getList() {
         return this.http.get('http://localhost:3000/post')
             .pipe(
-                tap(() => console.log(123))
+                map(result => result['content'])
             );
     }
     getData() {

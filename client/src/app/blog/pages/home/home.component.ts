@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PostService } from '../../services/post.service';
+import { PostService } from '../../../common/services/post.service';
 
 @Component({
   selector: 'app-home',
@@ -12,23 +12,18 @@ export class HomeComponent implements OnInit {
     private postService: PostService
   ) { }
 
-  data = [
-    'Racing car sprays burning fuel into crowd.',
-    'Japanese princess to wed commoner.',
-    'Australian walks 100km after outback crash.',
-    'Man charged over missing wedding girl.',
-    'Los Angeles battles huge wildfires.'
-  ];
+  data = [{
+    title: 'asd'
+  }];
   getPosts() {
     this.postService.getList()
       .subscribe(result => {
-
+        this.data = result.data;
       })
   }
 
   ngOnInit() {
     this.getPosts();
-
   }
 
 }
