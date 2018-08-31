@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { PostService } from '../../../common/services/post.service';
+import { PostService, DataContent } from '../../../common/services/post.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -9,17 +10,15 @@ import { PostService } from '../../../common/services/post.service';
 export class HomeComponent implements OnInit {
 
   constructor(
-    private postService: PostService
+    private postService: PostService,
   ) { }
 
-  data = [{
-    title: 'asd'
-  }];
+  data: any[];
+
   getPosts() {
-    this.postService.getList()
-      .subscribe(result => {
-        this.data = result.data;
-      })
+    this.postService.getList().subscribe((dataContent: DataContent) => {
+      this.data = dataContent.data;
+    });
   }
 
   ngOnInit() {

@@ -9,7 +9,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgZorroAntdModule, NZ_I18N, zh_CN } from 'ng-zorro-antd';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
-import { MainHeaderComponent } from './common/components/main-header/main-header.component';
+import { BlogModule } from './blog/blog.module';
+import { AdminModule } from './admin/admin.module';
 
 
 registerLocaleData(zh);
@@ -17,16 +18,16 @@ registerLocaleData(zh);
 @NgModule({
   declarations: [
     AppComponent,
-    MainHeaderComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
     NgZorroAntdModule,
-    HttpClientModule
+    BlogModule,
+    AdminModule,
+    AppRoutingModule
   ],
   providers: [{ provide: NZ_I18N, useValue: zh_CN, }],
   bootstrap: [AppComponent]

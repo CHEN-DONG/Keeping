@@ -7,19 +7,23 @@ import { FrontendComponent } from './pages/frontend/frontend.component';
 import { BackendComponent } from './pages/backend/backend.component';
 import { OthersComponent } from './pages/others/others.component';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
+import { BlogComponent } from './blog.component';
+import { MainHeaderComponent } from '../common/components/main-header/main-header.component';
 
 @NgModule({
   imports: [
     CommonModule,
     BlogRoutingModule,
-    NgZorroAntdModule
+    NgZorroAntdModule,
   ],
   declarations: [
+    BlogComponent,
     HomeComponent,
     FrontendComponent,
     BackendComponent,
-    OthersComponent
-  ]
+    OthersComponent,
+    MainHeaderComponent
+  ],
 })
 export class BlogModule { }
 
