@@ -1,6 +1,3 @@
 {
-    "typescript.preferences.importModuleSpecifier": "relative",
-    "debug.node.autoAttach": "off",
-    "editor.tabSize": 2,
-    "editor.detectIndentation": false,
+    "debug.node.autoAttach": "on"
 }

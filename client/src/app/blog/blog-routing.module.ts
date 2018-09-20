@@ -1,42 +1,42 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './pages/home/home.component';
-import { FrontendComponent } from './pages/frontend/frontend.component';
-import { BackendComponent } from './pages/backend/backend.component';
-import { OthersComponent } from './pages/others/others.component';
-import { BlogComponent } from './blog.component';
+import { NgModule } from "@angular/core";
+import { Routes, RouterModule } from "@angular/router";
+import { HomeComponent } from "./pages/home/home.component";
+import { FrontendComponent } from "./pages/frontend/frontend.component";
+import { BackendComponent } from "./pages/backend/backend.component";
+import { OthersComponent } from "./pages/others/others.component";
+import { BlogComponent } from "./blog.component";
 
 const routes: Routes = [
   {
-    path: 'blog',
+    path: "",
     component: BlogComponent,
     children: [
       {
-        path: 'latest',
+        path: "latest",
         component: HomeComponent
       },
       {
-        path: 'frontend',
+        path: "frontend",
         component: FrontendComponent
       },
       {
-        path: 'backend',
+        path: "backend",
         component: BackendComponent
       },
       {
-        path: 'others',
+        path: "others",
         component: OthersComponent
       },
       {
-        path: '',
+        path: "",
         component: HomeComponent
       }
     ]
-  },
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class BlogRoutingModule { }
+export class BlogRoutingModule {}

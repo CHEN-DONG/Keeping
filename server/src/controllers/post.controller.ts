@@ -1,15 +1,22 @@
-import { Controller, Get, Post, Body, Put, Delete, Param } from "@nestjs/common";
-import { PostService } from "../services/post.service";
-import { PostCreateDto } from "../dtos/post-create.dto";
-import { UtilService } from "../services/util.service";
-
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Put,
+  Delete,
+  Param,
+} from '@nestjs/common';
+import { PostService } from '../services/post.service';
+import { PostCreateDto } from '../dtos/post-create.dto';
+import { UtilService } from '../services/util.service';
 
 @Controller('post')
 export class PostController {
   constructor(
     private readonly postServeice: PostService,
-    private readonly util: UtilService
-  ) { }
+    private readonly util: UtilService,
+  ) {}
 
   @Get()
   async findAll() {
@@ -31,7 +38,6 @@ export class PostController {
 
   @Delete(':id')
   async delete(@Param() params) {
-    return this.postServeice.update({ id: params.id, isDelete: true })
+    return this.postServeice.update({ id: params.id, isDelete: true });
   }
-
 }
