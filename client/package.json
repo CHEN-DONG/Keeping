@@ -1,5 +1,5 @@
 {
-  "name": "keeping",
+  "name": "client",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -21,10 +21,10 @@
     "@angular/platform-browser-dynamic": "^6.1.0",
     "@angular/router": "^6.1.0",
     "core-js": "^2.5.4",
-    "ng-zorro-antd": "^1.4.0",
+    "echarts": "^4.2.0-rc.2",
+    "ng-zorro-antd": "^7.0.0-rc.1",
     "rxjs": "^6.0.0",
-    "zone.js": "~0.8.26",
-    "less": "^2.7.3"
+    "zone.js": "~0.8.26"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.7.0",

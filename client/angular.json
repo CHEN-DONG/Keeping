@@ -3,51 +3,33 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "keeping": {
+    "client": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
       "prefix": "app",
-      "schematics": {
-        "@schematics/angular:component": {
-          "styleext": "scss",
-          "spec": false
-        },
-        "@schematics/angular:class": {
-          "spec": false
-        },
-        "@schematics/angular:directive": {
-          "spec": false
-        },
-        "@schematics/angular:guard": {
-          "spec": false
-        },
-        "@schematics/angular:module": {
-          "spec": false
-        },
-        "@schematics/angular:pipe": {
-          "spec": false
-        },
-        "@schematics/angular:service": {
-          "spec": false
-        }
-      },
+      "schematics": {},
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/keeping",
+            "outputPath": "dist/client",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
+                "output": "/assets/"
+              }
             ],
             "styles": [
-              "src/theme.less",
-              "src/styles.scss"
+              "./node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
+              "src/styles.css"
             ],
             "scripts": []
           },
@@ -74,18 +56,21 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "keeping:build"
+            "browserTarget": "client:build",
+            "port": 4500,
+            "open": true,
+            "disableHostCheck": true
           },
           "configurations": {
             "production": {
-              "browserTarget": "keeping:build:production"
+              "browserTarget": "client:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "keeping:build"
+            "browserTarget": "client:build"
           }
         },
         "test": {
@@ -96,8 +81,8 @@
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
             "styles": [
-              "src/theme.less",
-              "src/styles.scss"
+              "./node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
+              "src/styles.css"
             ],
             "scripts": [],
             "assets": [
@@ -120,7 +105,7 @@
         }
       }
     },
-    "keeping-e2e": {
+    "client-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
@@ -128,11 +113,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "keeping:serve"
+            "devServerTarget": "client:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "keeping:serve:production"
+              "devServerTarget": "client:serve:production"
             }
           }
         },
@@ -148,5 +133,5 @@
       }
     }
   },
-  "defaultProject": "keeping"
+  "defaultProject": "client"
 }
