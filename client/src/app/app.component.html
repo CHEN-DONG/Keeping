@@ -1,12 +1,12 @@
 <!-- NG-ZORRO -->
 <nz-layout>
-  <nz-header>
-    <ul nz-menu [nzMode]="'horizontal'">
-      <li *ngFor="let item of navmenus" nz-menu-item>
-        <i nz-icon type="{{ item.icon }}"></i> {{ item.text }}
-      </li>
-    </ul>
-  </nz-header>
-  <nz-content><i nz-icon [type]="'home'"></i></nz-content>
-  <nz-footer>Footer</nz-footer>
+ <nz-header class="bg-header">
+  <ul nz-menu [nzMode]="'horizontal'" class="bg-menu">
+   <li *ngFor="let item of navmenus" nz-menu-item>
+    <i nz-icon type="{{ item.icon }}"></i> {{ item.text }}
+   </li>
+  </ul>
+ </nz-header>
+ <nz-content><button nz-button nzType="primary">Primary</button></nz-content>
+ <nz-footer>Footer</nz-footer>
 </nz-layout>
