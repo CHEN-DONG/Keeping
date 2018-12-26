@@ -6,7 +6,11 @@
     <i nz-icon type="{{ item.icon }}"></i> {{ item.text }}
    </li>
   </ul>
+  <nz-input-group [nzSuffix]="suffixIconSearch" class="search">
+   <input type="text" nz-input placeholder="Search" />
+  </nz-input-group>
+  <ng-template #suffixIconSearch> <i nz-icon type="search"></i> </ng-template>
  </nz-header>
- <nz-content><button nz-button nzType="primary">Primary</button></nz-content>
+ <nz-content> <router-outlet></router-outlet> </nz-content>
  <nz-footer>Footer</nz-footer>
 </nz-layout>

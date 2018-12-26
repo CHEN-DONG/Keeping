@@ -1,9 +1,16 @@
 .bg-header {
  width: 100vw;
- height: 48px;
- background-color: #0396ff;
+ height: 47px;
+ display: flex;
+ align-items: center;
+ background-color: #abdcff;
 }
 .bg-menu {
  max-width: 1024px;
  margin: 0 auto;
+ background-color: #abdcff;
+}
+
+.bg-header .search {
+ width: 200px;
 }

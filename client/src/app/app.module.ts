@@ -8,21 +8,23 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
+import { AppRoutingModule } from './app-routing.module';
+import { BannerComponent } from './components/banner/banner.component';
+import { HomeComponent } from './pages/home/home.component';
 
 registerLocaleData(en);
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    NgZorroAntdModule,
-    FormsModule,
-    HttpClientModule,
-    BrowserAnimationsModule
-  ],
-  providers: [{ provide: NZ_I18N, useValue: en_US }],
-  bootstrap: [AppComponent]
+ declarations: [AppComponent, BannerComponent, HomeComponent],
+ imports: [
+  BrowserModule,
+  NgZorroAntdModule,
+  FormsModule,
+  HttpClientModule,
+  BrowserAnimationsModule,
+  AppRoutingModule
+ ],
+ providers: [{ provide: NZ_I18N, useValue: en_US }],
+ bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
