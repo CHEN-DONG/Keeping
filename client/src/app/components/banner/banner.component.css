@@ -1,0 +1,28 @@
+.banner {
+  background-image: linear-gradient(180deg, #abdcff 0%, #0396ff 100%);
+}
+.title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 20px;
+  width: 100%;
+  max-width: 1024px;
+  margin: 0 auto;
+  height: 150px;
+}
+.title h1 {
+  margin: 0;
+  font-size: 35px;
+  letter-spacing: 10px;
+  line-height: 30px;
+}
+.title p {
+  font-size: 18px;
+  margin: 0;
+}
+.contact {
+}
+.contact a {
+  color: rgba(0, 0, 0, 0.85);
+}

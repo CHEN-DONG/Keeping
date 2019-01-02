@@ -1,13 +1,19 @@
 .bg-header {
  width: 100vw;
  height: 47px;
- display: flex;
- align-items: center;
  background-color: #abdcff;
 }
-.bg-menu {
+
+.header-content {
+ display: flex;
+ align-items: center;
  max-width: 1024px;
  margin: 0 auto;
+ justify-content: space-between;
+}
+
+.bg-menu {
+ max-width: 1024px;
  background-color: #abdcff;
 }
 

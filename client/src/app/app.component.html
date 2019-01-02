@@ -1,14 +1,16 @@
 <!-- NG-ZORRO -->
 <nz-layout>
  <nz-header class="bg-header">
-  <ul nz-menu [nzMode]="'horizontal'" class="bg-menu">
-   <li *ngFor="let item of navmenus" nz-menu-item>
-    <i nz-icon type="{{ item.icon }}"></i> {{ item.text }}
-   </li>
-  </ul>
-  <nz-input-group [nzSuffix]="suffixIconSearch" class="search">
-   <input type="text" nz-input placeholder="Search" />
-  </nz-input-group>
+  <div class="header-content">
+   <ul nz-menu [nzMode]="'horizontal'" class="bg-menu">
+    <li *ngFor="let item of navmenus" nz-menu-item>
+     <i nz-icon type="{{ item.icon }}"></i> {{ item.text }}
+    </li>
+   </ul>
+   <nz-input-group [nzSuffix]="suffixIconSearch" class="search">
+    <input type="text" nz-input placeholder="Search" />
+   </nz-input-group>
+  </div>
   <ng-template #suffixIconSearch> <i nz-icon type="search"></i> </ng-template>
  </nz-header>
  <nz-content> <router-outlet></router-outlet> </nz-content>
