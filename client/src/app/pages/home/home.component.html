@@ -1,11 +1,6 @@
 <app-banner></app-banner>
 <div class="list">
-  <div nz-row nzType="flex" nzJustify="space-between" *ngFor="let item of list">
-    <div nz-col nzSpan="6" class="list-item">col-4</div>
-    <div nz-col nzSpan="6">col-4</div>
-    <div nz-col nzSpan="6">col-4</div>
-    <div nz-col nzSpan="6">col-4</div>
-    <div nz-col nzSpan="6">col-4</div>
+  <div nz-row>
+    <div nz-col nzSpan="8" class="list-item" *ngFor="let item of list">{{item.name}}</div>
   </div>
-  <div *ngFor="let item of list"></div>
 </div>
