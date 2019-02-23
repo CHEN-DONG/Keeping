@@ -2,6 +2,18 @@
   padding: 100px 50px;
   background: #fff;
 }
-/* .list-item{
-  height: 50px;
-} */
+.item-box{
+
+}
+.list-item{
+  width: 320px;
+  height: 320px;
+  margin: 0 auto;
+}
+
+.cover{
+  height: 200px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
