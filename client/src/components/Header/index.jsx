@@ -1,11 +1,11 @@
 import React from 'react';
 import { Avatar, Row, Input, Menu, Icon } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import './index.scss';
 
 const Search = Input.Search;
 
-export default class Header extends React.Component {
+class Header extends React.Component {
   headerMenus = [
     {
       name: '首页',
@@ -60,7 +60,7 @@ export default class Header extends React.Component {
             <div className="header-search">
               <Search
                 placeholder="搜索"
-                onSearch={value => console.log(value)}
+                onSearch={this.handleSearch}
                 style={{ width: 200 }}
               />
             </div>
@@ -75,4 +75,10 @@ export default class Header extends React.Component {
       current: e.key,
     });
   }
+
+  handleSearch = (val) => {
+    this.props.history.push(`/search/${val}`);
+  }
 }
+
+export default withRouter(Header);

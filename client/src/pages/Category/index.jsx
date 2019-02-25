@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon, Card, Avatar, Row } from 'antd';
+import { Card, Row } from 'antd';
 import './index.scss';
 
 const { Meta } = Card;
