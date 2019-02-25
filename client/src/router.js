@@ -1,15 +1,17 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import HomeComponent from './pages/Home/index.jsx';
+import Home from './pages/Home/index.jsx';
 import Category from './pages/Category/index';
-import SearchComponent from './pages/Search';
+import PostDetail from './pages/PostDetial/index';
+import Search from './pages/Search/index';
 
 export default () => (
   <div>
     <Switch>
-      <Route exact path="/" component={HomeComponent} />
+      <Route exact path="/" component={Home} />
       <Route exact path="/category" component={Category} />
-      <Route path="/search" component={SearchComponent} />
+      <Route path="/search" component={Search} />
+      <Route path="/post/:id" component={PostDetail} />
     </Switch>
   </div>
 );

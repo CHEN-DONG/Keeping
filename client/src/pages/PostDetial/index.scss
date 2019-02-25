@@ -1,0 +1,21 @@
+.post-detail-container{
+  background-color: #fff;
+  padding: 20px 30px;
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,.05);
+}
+.circle{
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.04);
+  cursor: pointer;
+}
+.detail-operation{
+  position: fixed;
+  margin-left: -100px;;
+  top: 200px;
+}
