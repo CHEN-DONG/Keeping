@@ -1,0 +1,20 @@
+.home-container{
+  background: #fff;
+}
+.ant-list-item{
+  padding: 15px 30px;
+  .item-cover{
+    width: 150px;
+    height: 100%;
+    background-size: cover;
+  }
+}
+.ant-list-vertical{
+  .ant-list-item-meta{
+    margin-bottom: 5px;
+  }
+  .ant-list-item-meta-title{
+    margin-bottom: 5px;
+    font-size: 18px;
+  }
+}

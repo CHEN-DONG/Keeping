@@ -1,0 +1,78 @@
+import React from 'react';
+import { Avatar, Row, Input, Menu, Icon } from 'antd';
+import { Link } from 'react-router-dom';
+import './index.scss';
+
+const Search = Input.Search;
+
+export default class Header extends React.Component {
+  headerMenus = [
+    {
+      name: '首页',
+      path: '/',
+      icon: 'home',
+    },
+    {
+      name: '分类',
+      path: '/category',
+      icon: 'profile',
+    },
+    {
+      name: '反馈',
+      path: '/feedback',
+      icon: 'message',
+    },
+  ]
+
+  state = {
+    current: '0',
+  }
+
+  render() {
+    return (
+      <header className="header-container">
+        <Row className="header" type="flex" justify="space-between" align="middle">
+          <Row className="left-content" type="flex" align="middle">
+            <div className="header-logo">
+              <Avatar shape="square" size={50} src={require('./assets/logo.jpeg')} />
+            </div>
+            <Menu
+              onClick={this.handleNavClick}
+              selectedKeys={[this.state.current]}
+              mode="horizontal"
+              style={{ lineHeight: '60px' }}
+            >
+              {
+                this.headerMenus.map((item, index) => {
+                  return (
+                    <Menu.Item key={index}>
+                      <Link to={item.path}>
+                        <Icon type={item.icon} />
+                        {item.name}
+                      </Link>
+                    </Menu.Item>
+                  );
+                })
+              }
+            </Menu>
+          </Row>
+          <div className="right-content">
+            <div className="header-search">
+              <Search
+                placeholder="搜索"
+                onSearch={value => console.log(value)}
+                style={{ width: 200 }}
+              />
+            </div>
+          </div>
+        </Row>
+      </header>
+    );
+  }
+
+  handleNavClick = (e) => {
+    this.setState({
+      current: e.key,
+    });
+  }
+}
