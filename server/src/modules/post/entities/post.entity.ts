@@ -7,22 +7,22 @@ export class PostEntity extends BaseEntity {
   @Column("text")
   public title: string;
 
-  @Column("text")
+  @Column("text", { nullable: true })
   public brief: string;
 
-  @Column("text")
+  @Column("text", { nullable: true })
   public cover: string;
 
   @Column("text")
   public content: string;
 
-  @Column("int")
+  @Column("int", { default: 0 })
   public view: number;
 
-  @Column("int")
+  @Column("int", { default: 0 })
   public like: number;
 
-  @Column("simple-array")
+  @Column("simple-array", { nullable: true })
   public labels: string[]
 
   @ManyToMany(type => CategoryEntity)

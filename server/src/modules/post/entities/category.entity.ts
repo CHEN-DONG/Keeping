@@ -6,12 +6,12 @@ export class CategoryEntity extends BaseEntity {
   @Column("text")
   public name: string;
 
-  @Column("text")
+  @Column("text", { nullable: true })
   public brief: string;
 
-  @Column("text")
+  @Column("text", { nullable: true })
   public cover: string;
 
-  @Column("text")
+  @Column("text", { nullable: true })
   public code: string;
 }
