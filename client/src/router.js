@@ -9,7 +9,7 @@ export default () => (
   <div>
     <Switch>
       <Route exact path="/" component={Home} />
-      <Route exact path="/category" component={Category} />
+      <Route path="/category" component={Category} />
       <Route path="/search/:query" component={Search} />
       <Route path="/post/:id" component={PostDetail} />
     </Switch>
