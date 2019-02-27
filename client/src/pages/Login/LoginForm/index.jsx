@@ -1,7 +1,7 @@
 
 import React from 'react';
 import {
-  Form, Icon, Input, Button, Checkbox,
+  Form, Icon, Input, Button,
 } from 'antd';
 
 class LoginForm extends React.Component {
@@ -42,5 +42,5 @@ class LoginForm extends React.Component {
   }
 }
 
-const WrappedLoginForm = Form.create({ name: 'normal_login' })(LoginForm);
+const WrappedLoginForm = Form.create({ name: 'login' })(LoginForm);
 export default WrappedLoginForm;

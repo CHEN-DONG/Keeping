@@ -5,6 +5,7 @@ import Category from './pages/Category/index';
 import PostDetail from './pages/PostDetial/index';
 import Search from './pages/Search/index';
 import Login from './pages/Login/index';
+import DashBoard from './pages/Dashboard/index';
 
 export default () => (
   <div>
@@ -14,6 +15,7 @@ export default () => (
       <Route path="/search/:query" component={Search} />
       <Route path="/post/:id" component={PostDetail} />
       <Route path="/entry" component={Login} />
+      <Route path="/dashboard" component={DashBoard} />
     </Switch>
   </div>
 );
