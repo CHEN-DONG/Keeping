@@ -5,6 +5,7 @@ import * as pg from "pg";
 import * as session from "express-session";
 import * as ConnectPgSimple from "connect-pg-simple";
 import * as passport from "passport";
+import * as cors from "cors";
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { APP_CONFIG } from "./configs/app.config";
@@ -35,6 +36,7 @@ async function bootstrap() {
     );
     app.use(passport.initialize());
     app.use(passport.session());
+    app.use(cors());
     await app.listen(port);
   } catch (error) {
     console.log(error)
