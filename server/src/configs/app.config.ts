@@ -1,3 +1,5 @@
+import * as _ from 'lodash';
+
 const {
   env: {
     ENVIRONMENT,
@@ -26,6 +28,12 @@ export const APP_CONFIG = {
   port: PORT,
   roleGuardEnable: ROLE_GUARD_ENABLE,
   webHost: WEB_HOST,
+
+  databaseHost: _.toString(DATABASE_HOST),
+  databaseName: _.toString(DATABASE_NAME),
+  databasePassword: _.toString(DATABASE_PASSWORD),
+  databasePort: _.toNumber(DATABASE_PORT),
+  databaseUsername: _.toString(DATABASE_USERNAME),
 
   cookieSecret: COOKIE_SECRET,
   sessionSecret: SESSION_SECRET,

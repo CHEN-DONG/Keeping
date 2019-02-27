@@ -3,7 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import _ from "lodash";
 import { PostEntity } from "../entities/post.entity";
-import { AuthGuard } from "@nestjs/passport";
+import { LocalGuard } from "../../../guards/local.guard"
 
 @Controller("post")
 export class PostController {
@@ -13,7 +13,7 @@ export class PostController {
   ) { }
 
   @Get()
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(LocalGuard)
   public async getPosts() {
     return await this.postRepository.find({ relations: ["categories"] });
   }

@@ -2,21 +2,22 @@
 import { ConnectionOptions } from "typeorm";
 import * as _ from 'lodash';
 
+import { APP_CONFIG } from "./app.config";
 
 const {
-  DATABASE_NAME,
-  DATABASE_HOST,
-  DATABASE_PASSWORD,
-  DATABASE_PORT,
-  DATABASE_USERNAME
-} = process.env;
+  databaseName,
+  databaseHost,
+  databasePassword,
+  databasePort,
+  databaseUsername,
+} = APP_CONFIG;
 
 export const DATABASE_CONFIG: ConnectionOptions = {
-  database: _.toString(DATABASE_NAME),
-  host: _.toString(DATABASE_HOST),
-  username: _.toString(DATABASE_USERNAME),
-  password: _.toString(DATABASE_PASSWORD),
-  port: _.toNumber(DATABASE_PORT),
+  database: databaseName,
+  host: databaseHost,
+  username: databaseUsername,
+  password: databasePassword,
+  port: databasePort,
   synchronize: true,
   type: "postgres",
   entities: [process.cwd() + "/src/modules/**/**.entity{.ts,.js}"],
