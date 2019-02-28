@@ -1,8 +1,9 @@
 import React from 'react';
 import { Menu, Icon } from 'antd';
+import { Link } from 'react-router-dom';
+
 
 const SubMenu = Menu.SubMenu;
-const MenuItemGroup = Menu.ItemGroup;
 
 class Navigation extends React.Component {
   navigationMenus = [
@@ -12,7 +13,12 @@ class Navigation extends React.Component {
       icon: 'form',
       child: [
         {
-          name: '文章',
+          name: '文章列表',
+          path: '/dashboard/post/list',
+          icon: 'form',
+        },
+        {
+          name: '新建文章',
           path: '/',
           icon: 'form',
         },
@@ -47,7 +53,7 @@ class Navigation extends React.Component {
       <nav className="dashboard-nav-container">
         <Menu
           onClick={this.handleClick}
-          style={{ width: 256 }}
+          style={{}}
           defaultSelectedKeys={['1']}
           defaultOpenKeys={['0', '1']}
           mode="inline"
@@ -66,7 +72,9 @@ class Navigation extends React.Component {
                   {
                     item.child.map((c, i) => {
                       return (
-                        <Menu.Item key={`${index}${i}`}>{c.name}</Menu.Item>
+                        <Menu.Item key={`${index}${i}`}>
+                          <Link to={c.path}>{c.name}</Link>
+                        </Menu.Item>
                       );
                     })
                   }

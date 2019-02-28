@@ -1,21 +1,15 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
-import Home from './pages/Home/index.jsx';
-import Category from './pages/Category/index';
-import PostDetail from './pages/PostDetial/index';
-import Search from './pages/Search/index';
-import Login from './pages/Login/index';
-import DashBoard from './pages/Dashboard/index';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import KeepLayout from './layouts/KeepLayout';
+import DashboardLayout from './layouts/DashboardLayout';
 
 export default () => (
   <div>
-    <Switch>
-      <Route exact path="/" component={Home} />
-      <Route path="/category" component={Category} />
-      <Route path="/search/:query" component={Search} />
-      <Route path="/post/:id" component={PostDetail} />
-      <Route path="/entry" component={Login} />
-      <Route path="/dashboard" component={DashBoard} />
-    </Switch>
+    <Router>
+      <Switch>
+        <Route path="/dashboard" component={DashboardLayout} />
+        <Route path="/" component={KeepLayout} />
+      </Switch>
+    </Router>
   </div>
 );

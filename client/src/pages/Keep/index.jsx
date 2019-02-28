@@ -21,7 +21,7 @@ const IconText = ({ type, text }) => (
   </span>
 );
 
-export default class Home extends React.Component {
+export default class Keep extends React.Component {
   render() {
     return (
       <div className="home-container main-container">
