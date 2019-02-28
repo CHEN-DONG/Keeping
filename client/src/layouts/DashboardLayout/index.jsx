@@ -5,6 +5,7 @@ import Header from '../../components/Header';
 import Navigation from './Navigation';
 import Dashboard from '../../pages/Dashboard';
 import PostList from '../../pages/Dashboard/PostList';
+import CreatePost from '../../pages/Dashboard/CreatePost';
 
 export default class DashboardLayout extends React.Component {
   render() {
@@ -16,7 +17,7 @@ export default class DashboardLayout extends React.Component {
           <Switch>
             <Route exact path="/dashboard" component={Dashboard} />
             <Route path="/dashboard/post/list" component={PostList} />
-            {/* <Redirect exact from="/dashboard" to="/post/list" /> */}
+            <Route path="/dashboard/post/create" component={CreatePost} />
           </Switch>
         </Row>
       </div>
