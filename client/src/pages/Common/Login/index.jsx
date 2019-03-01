@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row } from 'antd';
-import axios from 'axios';
+import axios from '../../../axios';
 import WrappedLoginForm from './LoginForm';
 import './index.scss';
 

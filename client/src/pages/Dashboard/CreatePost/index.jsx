@@ -5,6 +5,7 @@ import {
 
 import WrappedForm from '../../../components/WrappedForm';
 import MarkdownEditor from '../../../components/MarkdownEditor';
+import axios from '../../../axios';
 
 export default class CreatePost extends React.Component {
   handleSubmit = (e) => {
@@ -12,6 +13,9 @@ export default class CreatePost extends React.Component {
     this.refs.postForm.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
+        axios.post('post', values).then((res) => {
+          console.log(res);
+        });
       }
     });
   }

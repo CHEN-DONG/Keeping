@@ -18,4 +18,10 @@ export class PostController {
     return await this.postRepository.find({ relations: ["categories"] });
   }
 
+  @Post()
+  @UseGuards(LocalGuard)
+  public async createPosts(@Body() data: any) {
+    return await this.postRepository.save(data);
+  }
+
 }
