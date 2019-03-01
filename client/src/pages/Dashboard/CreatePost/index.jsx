@@ -1,42 +1,38 @@
 import React from 'react';
 import {
-  Form, Icon, Input, Button, Checkbox,
+  Form, Icon, Input, Button, Checkbox, Upload,
 } from 'antd';
 
+import WrappedForm from '../../../components/WrappedForm';
+import MarkdownEditor from '../../../components/MarkdownEditor';
+
 export default class CreatePost extends React.Component {
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.refs.postForm.validateFields((err, values) => {
+      if (!err) {
+        console.log('Received values of form: ', values);
+      }
+    });
+  }
+
   render() {
-    const { getFieldDecorator } = this.props.form;
     return (
       <div className="create-post-container">
-        <Form onSubmit={this.handleSubmit} className="login-form">
-          <Form.Item>
-            {getFieldDecorator('userName', {
-              rules: [{ required: true, message: 'Please input your username!' }],
-            })(
-              <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
-            )}
-          </Form.Item>
-          <Form.Item>
-            {getFieldDecorator('password', {
-              rules: [{ required: true, message: 'Please input your Password!' }],
-            })(
-              <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
-            )}
-          </Form.Item>
-          <Form.Item>
-            {getFieldDecorator('remember', {
-              valuePropName: 'checked',
-              initialValue: true,
-            })(
-              <Checkbox>Remember me</Checkbox>
-            )}
-            <a className="login-form-forgot" href="">Forgot password</a>
-            <Button type="primary" htmlType="submit" className="login-form-button">
-              Log in
+        <WrappedForm ref="postForm">
+          <Input key="title" label="标题" rules={[{ required: true }]} />
+          <Input.TextArea rows={4} key="brief" label="简介" />
+          <Upload.Dragger key="cover" label="背景图" name="files" action="/upload.do">
+            <p className="ant-upload-drag-icon">
+              <Icon type="inbox" />
+            </p>
+            <p className="ant-upload-hint">点击或拖拽上传图片</p>
+          </Upload.Dragger>
+          <MarkdownEditor key="content" label="内容" rules={[{ required: true }]} />
+          <Button key="submit" type="primary" className="login-form-button" onClick={this.handleSubmit}>
+            完成
           </Button>
-            Or <a href="">register now!</a>
-          </Form.Item>
-        </Form>
+        </WrappedForm>
       </div>
     );
   }

@@ -7,3 +7,10 @@
   background: #fff;
   height: calc(100vh - 60px);
 }
+.create-post-container{
+  flex:1;
+  background: #fff;
+  padding: 30px 20px;
+  overflow: auto;
+  height: calc(100vh - 60px);
+}
