@@ -6,6 +6,8 @@ import Navigation from './Navigation';
 import Dashboard from '../../pages/Dashboard';
 import PostList from '../../pages/Dashboard/PostList';
 import CreatePost from '../../pages/Dashboard/CreatePost';
+import ManageUser from '../../pages/Dashboard/ManageUser';
+import ManageRole from '../../pages/Dashboard/ManageRole';
 
 export default class DashboardLayout extends React.Component {
   render() {
@@ -18,6 +20,8 @@ export default class DashboardLayout extends React.Component {
             <Route exact path="/dashboard" component={Dashboard} />
             <Route path="/dashboard/post/list" component={PostList} />
             <Route path="/dashboard/post/create" component={CreatePost} />
+            <Route path="/dashboard/user" component={ManageUser} />
+            <Route path="/dashboard/role" component={ManageRole} />
           </Switch>
         </Row>
       </div>

@@ -36,12 +36,12 @@ class Navigation extends React.Component {
       child: [
         {
           name: '用户',
-          path: '/',
+          path: '/dashboard/user',
           icon: 'form',
         },
         {
           name: '角色',
-          path: '/',
+          path: '/dashboard/role',
           icon: 'user',
         },
       ],
