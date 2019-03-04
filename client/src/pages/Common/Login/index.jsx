@@ -1,10 +1,11 @@
 import React from 'react';
 import { Row } from 'antd';
+import { withRouter } from 'react-router-dom';
 import axios from '../../../axios';
 import WrappedLoginForm from './LoginForm';
 import './index.scss';
 
-export default class Login extends React.Component {
+class Login extends React.Component {
   render() {
     return (
       <div className="login-container main-container">
@@ -26,12 +27,11 @@ export default class Login extends React.Component {
           password: values.password,
         })
           .then((response) => {
-            console.log(response);
-          })
-          .catch((error) => {
-            console.log(error);
+            this.props.history.push('/dashboard');
           });
       }
     });
   }
 }
+
+export default withRouter(Login);

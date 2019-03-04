@@ -17,11 +17,11 @@ export default class DashboardLayout extends React.Component {
         <Row type="flex" justify="space-between">
           <Navigation />
           <Switch>
-            <Route exact path="/dashboard" component={Dashboard} />
             <Route path="/dashboard/post/list" component={PostList} />
             <Route path="/dashboard/post/create" component={CreatePost} />
             <Route path="/dashboard/user" component={ManageUser} />
             <Route path="/dashboard/role" component={ManageRole} />
+            <Route path="/dashboard" component={Dashboard} />
           </Switch>
         </Row>
       </div>
