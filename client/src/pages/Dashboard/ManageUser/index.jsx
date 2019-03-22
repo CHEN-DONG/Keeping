@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Divider, Tag, Modal } from 'antd';
+import { Table, Divider, Modal } from 'antd';
 
 const { Column } = Table;
 

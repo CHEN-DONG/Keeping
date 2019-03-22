@@ -22,6 +22,9 @@ export class PostEntity extends BaseEntity {
   @Column("int", { default: 0 })
   public like: number;
 
+  @Column("int", { default: 0 })
+  public status: number;
+
   @Column("simple-array", { nullable: true })
   public labels: string[]
 
