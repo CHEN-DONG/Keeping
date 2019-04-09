@@ -3,6 +3,15 @@ import axios from 'axios';
 axios.defaults.baseURL = 'http://localhost:7000/';
 axios.defaults.withCredentials = true;
 
+axios.interceptors.response.use((response) => {
+  // Do something with response data
+  if (response.data && response.data.code === 200) return response.data;
+  return response;
+}, (error) => {
+  // Do something with response error
+  return Promise.reject(error);
+});
+
 export default {
   get: (url, options) => {
     const urlWithStamp = `${url}?t=${Date.now()}`;

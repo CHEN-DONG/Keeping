@@ -18,7 +18,7 @@ class Header extends React.Component {
       icon: 'profile',
     },
     {
-      name: '反馈',
+      name: '反馈',
       path: '/feedback',
       icon: 'message',
     },

@@ -1,33 +1,12 @@
 import React from 'react';
 import { Table, Divider, Tag, Modal } from 'antd';
+import axios from '../../../axios';
 
 const { Column } = Table;
 
-const data = [{
-  key: '1',
-  firstName: 'John',
-  lastName: 'Brown',
-  age: 32,
-  address: 'New York No. 1 Lake Park',
-  tags: ['nice', 'developer'],
-}, {
-  key: '2',
-  firstName: 'Jim',
-  lastName: 'Green',
-  age: 42,
-  address: 'London No. 1 Lake Park',
-  tags: ['loser'],
-}, {
-  key: '3',
-  firstName: 'Joe',
-  lastName: 'Black',
-  age: 32,
-  address: 'Sidney No. 1 Lake Park',
-  tags: ['cool', 'teacher'],
-}];
-
 export default class PostList extends React.Component {
   state = {
+    data: [],
     ModalText: 'Content of the modal',
     visible: false,
     confirmLoading: false,
@@ -36,16 +15,11 @@ export default class PostList extends React.Component {
   render() {
     return (
       <div className="data-table-container">
-        <Table dataSource={data}>
+        <Table dataSource={this.state.data} rowKey="id">
           <Column
             title="文章标题"
-            dataIndex="name"
-            key="name"
-          />
-          <Column
-            title="类别"
-            dataIndex="category"
-            key="category"
+            dataIndex="title"
+            key="title"
           />
           <Column
             title="状态"
@@ -58,12 +32,12 @@ export default class PostList extends React.Component {
             key="updateDate"
           />
           <Column
-            title="标签"
-            dataIndex="tags"
-            key="tags"
-            render={tags => (
+            title="类别"
+            dataIndex="categories"
+            key="categories"
+            render={categories => (
               <span>
-                {tags.map(tag => <Tag color="blue" key={tag}>{tag}</Tag>)}
+                {categories.map(category => <Tag color="blue" key={category}>{category}</Tag>)}
               </span>
             )}
           />
@@ -90,6 +64,15 @@ export default class PostList extends React.Component {
         </Modal>
       </div>
     );
+  }
+
+  componentDidMount = () => {
+    axios.get('post').then((res) => {
+      console.log(res);
+      this.setState({
+        data: res.data,
+      });
+    });
   }
 
   showModal = () => {
