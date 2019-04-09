@@ -10,12 +10,13 @@ export default class PostList extends React.Component {
     ModalText: 'Content of the modal',
     visible: false,
     confirmLoading: false,
+    loading: false,
   }
 
   render() {
     return (
       <div className="data-table-container">
-        <Table dataSource={this.state.data} rowKey="id">
+        <Table dataSource={this.state.data} loading={this.state.loading} rowKey="id">
           <Column
             title="文章标题"
             dataIndex="title"
@@ -67,10 +68,11 @@ export default class PostList extends React.Component {
   }
 
   componentDidMount = () => {
-    axios.get('post', { loading: true }).then((res) => {
-      console.log(res);
+    this.setState({ loading: true });
+    axios.get('post').then((res) => {
       this.setState({
         data: res.data,
+        loading: false,
       });
     });
   }

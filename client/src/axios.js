@@ -5,7 +5,6 @@ axios.defaults.withCredentials = true;
 
 axios.interceptors.request.use((config) => {
   // Do something before request is sent
-  console.log(config);
   return config;
 }, (error) => {
   // Do something with request error

@@ -16,7 +16,7 @@ export class PostController {
   @Get()
   @UseGuards(LocalGuard)
   public async getPosts() {
-    const data = await this.postRepository.find({ relations: ["categories"] });
+    const data = await this.postRepository.findAndCount({ relations: ["categories"] });
     return createResult(data);
   }
 
