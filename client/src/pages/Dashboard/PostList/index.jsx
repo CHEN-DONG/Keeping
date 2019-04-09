@@ -67,7 +67,7 @@ export default class PostList extends React.Component {
   }
 
   componentDidMount = () => {
-    axios.get('post').then((res) => {
+    axios.get('post', { loading: true }).then((res) => {
       console.log(res);
       this.setState({
         data: res.data,
