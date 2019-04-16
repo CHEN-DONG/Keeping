@@ -4,6 +4,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Strategy } from "passport-local";
 import { Repository } from "typeorm";
 import { UserEntity } from "../../dashboard/entities/user.entity";
+import { createResult }  from "../../../common/utils"
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {
@@ -15,11 +16,11 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
   }
 
   public async validate(username: string, password: string, done: Function) {
-    console.log(username, password);
     const user = await this.userRepository.findOne({
       relations: ["roles"],
       where: { username, password },
     });
+    if(!user) return done(null, false, { message: 'Incorrect username or password' })
     done(null, user);
   }
 }

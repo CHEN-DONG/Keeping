@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row } from 'antd';
+import { message } from 'antd';
 import { withRouter } from 'react-router-dom';
 import axios from '../../../axios';
 import WrappedLoginForm from './LoginForm';
@@ -21,12 +21,13 @@ class Login extends React.Component {
     e.preventDefault();
     this.refs.loginForm.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
-        axios.post('http://localhost:7000/auth/login', {
+        axios.post('auth/login', {
           username: values.username,
           password: values.password,
         })
-          .then((response) => {
+          .then(() => {
+            message.success('登陆成功');
+            sessionStorage.setItem('isLogin', true);
             this.props.history.push('/dashboard');
           });
       }

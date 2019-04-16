@@ -4,7 +4,7 @@ import { Repository } from "typeorm";
 import _ from "lodash";
 import { PostEntity } from "../entities/post.entity";
 import { LocalGuard } from "../../../guards/local.guard";
-import { createResult } from 'src/utils';
+import { createResult } from 'src/common/utils';
 
 @Controller("post")
 export class PostController {
@@ -15,14 +15,17 @@ export class PostController {
 
   @Get()
   @UseGuards(LocalGuard)
-  public async getPosts() {
-    const data = await this.postRepository.findAndCount({ relations: ["categories"] });
-    return createResult(data);
+  public async getPost() {
+    const result = await this.postRepository.findAndCount({ relations: ["categories"] });
+    return createResult({
+      data: result[0],
+      count: result[1],
+    });
   }
 
   @Post()
   @UseGuards(LocalGuard)
-  public async createPosts(@Body() data: any) {
+  public async createPost(@Body() data: any) {
     return await this.postRepository.save(data);
   }
 

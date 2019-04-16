@@ -1,6 +1,6 @@
-import { IResult } from "./interfaces/result.interface";
+import { IResult } from "../interfaces/result.interface";
 import { HttpException } from "@nestjs/common";
-import { HTTP_CODE_ENUM } from "./enums/http-code.enum";
+import { HTTP_CODE_ENUM } from "../enums/http-code.enum";
 
 function createResult(
   dataOrError: any | Error | HttpException,

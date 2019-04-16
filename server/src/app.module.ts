@@ -3,14 +3,16 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { DATABASE_CONFIG } from './configs/database.config'
-import { PostModule } from './modules/post/post.module';
+import { BlogModule } from './modules/blog/blog.module';
 import { AuthModule } from './modules/authentication/auth.module';
+import { DashboardModule } from './modules/dashboard/dashboard.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(DATABASE_CONFIG),
-    PostModule,
-    AuthModule
+    BlogModule,
+    AuthModule,
+    DashboardModule
   ],
   controllers: [AppController],
   providers: [AppService],

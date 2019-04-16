@@ -16,4 +16,4 @@ import { PostController, CategoryController } from "./controllers"
   ],
   providers: [],
 })
-export class PostModule { }
+export class BlogModule { }

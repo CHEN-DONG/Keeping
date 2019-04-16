@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { message } from 'antd';
 
 axios.defaults.baseURL = 'http://localhost:7000/';
 axios.defaults.withCredentials = true;
@@ -17,6 +18,7 @@ axios.interceptors.response.use((response) => {
   return response;
 }, (error) => {
   // Do something with response error
+  if (error.response.status === 401) message.error('登陆失败');
   return Promise.reject(error);
 });
 

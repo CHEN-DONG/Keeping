@@ -13,7 +13,6 @@ export class CategoryController {
 
   @Get()
   public async getPosts() {
-    console.log(1)
     return await this.categoryRepository.find();
   }
 

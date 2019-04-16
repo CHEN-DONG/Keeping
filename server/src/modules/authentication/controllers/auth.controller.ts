@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Request, Response } from '@nestjs/common';
 import * as passport from "passport";
 import { AuthService } from '../services/auth.service';
-import { createResult } from 'src/utils';
+import { createResult } from 'src/common/utils';
 import { HTTP_CODE_ENUM } from 'src/enums/http-code.enum';
 
 @Controller('auth')
