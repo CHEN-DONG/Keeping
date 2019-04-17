@@ -11,12 +11,23 @@ export default class PostList extends React.Component {
     visible: false,
     confirmLoading: false,
     loading: false,
+    pagination: {
+      total: 0,
+      pageSize: 10,
+      current: 1,
+    },
   }
 
   render() {
     return (
       <div className="data-table-container">
-        <Table dataSource={this.state.data} loading={this.state.loading} rowKey="id">
+        <Table
+          dataSource={this.state.data}
+          loading={this.state.loading}
+          pagination={this.state.pagination}
+          onChange={this.handleTableChange}
+          rowKey="id"
+        >
           <Column
             title="文章标题"
             dataIndex="title"
@@ -68,14 +79,36 @@ export default class PostList extends React.Component {
   }
 
   componentDidMount = () => {
+    this.handleFecthData();
+  }
+
+  handleTableChange = (pagination, filters, sorter) => {
+    const { pagination: pager } = this.state;
+    pager.current = pagination.current;
+    this.setState({
+      pagination: pager,
+    });
+    this.handleFecthData();
+  }
+
+  handleFecthData = () => {
+    const { pagination } = this.state;
     this.setState({ loading: true });
-    axios.get('post').then((res) => {
+    axios.get('admin/post', {
+      params: {
+        pageSize: pagination.pageSize,
+        pageNumber: pagination.current,
+      },
+    }).then((res) => {
+      pagination.total = res.data.count;
       this.setState({
-        data: res.data,
+        data: res.data.list,
+        pagination,
         loading: false,
       });
     });
   }
+
 
   showModal = () => {
     this.setState({
@@ -83,18 +116,6 @@ export default class PostList extends React.Component {
     });
   }
 
-  handleOk = () => {
-    this.setState({
-      ModalText: 'The modal will be closed after two seconds',
-      confirmLoading: true,
-    });
-    setTimeout(() => {
-      this.setState({
-        visible: false,
-        confirmLoading: false,
-      });
-    }, 2000);
-  }
 
   handleCancel = () => {
     console.log('Clicked cancel button');

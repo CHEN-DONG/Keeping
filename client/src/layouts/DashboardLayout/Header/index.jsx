@@ -1,7 +1,7 @@
 import React from 'react';
-import { Avatar, Row, Input, Menu, Icon } from 'antd';
+import { Avatar, Row, Input, Menu, Icon, Button, message } from 'antd';
 import { Link, withRouter } from 'react-router-dom';
-import './index.scss';
+import axios from '../../../axios.js';
 
 const Search = Input.Search;
 
@@ -10,52 +10,24 @@ class Header extends React.Component {
     return (
       <header className="header-container">
         <Row className="header" type="flex" justify="space-between" align="middle">
-          <Row className="left-content" type="flex" align="middle">
-            <div className="header-logo">
-              <Avatar shape="square" size={50} src={require('./assets/logo.jpeg')} />
-            </div>
-            <Menu
-              onClick={this.handleNavClick}
-              selectedKeys={[this.state.current]}
-              mode="horizontal"
-              style={{ lineHeight: '60px' }}
-            >
-              {
-                this.headerMenus.map((item, index) => {
-                  return (
-                    <Menu.Item key={index}>
-                      <Link to={item.path}>
-                        <Icon type={item.icon} />
-                        {item.name}
-                      </Link>
-                    </Menu.Item>
-                  );
-                })
-              }
-            </Menu>
-          </Row>
-          <div className="right-content">
-            <div className="header-search">
-              <Search
-                placeholder="搜索"
-                onSearch={this.handleSearch}
-                style={{ width: 200 }}
-              />
-            </div>
+          <div className="left-content">
+            <h3>DASHBOARD</h3>
           </div>
+          <Row className="right-content" type="flex" align="middle">
+            <Button onClick={this.handleLogout}>注销</Button>
+          </Row>
         </Row>
       </header>
     );
   }
 
-  handleNavClick = (e) => {
-    this.setState({
-      current: e.key,
-    });
-  }
-
-  handleSearch = (val) => {
-    this.props.history.push(`/search/${val}`);
+  handleLogout = () => {
+    axios.post('auth/logout')
+      .then(() => {
+        message.success('注销成功');
+        //sessionStorage.removeItem('isLogin');
+        this.props.history.push('/common/entry');
+      });
   }
 }
 

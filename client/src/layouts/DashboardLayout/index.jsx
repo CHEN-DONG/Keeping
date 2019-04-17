@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { Row } from 'antd';
-import Header from '../../components/Header';
+import Header from './Header/index';
 import Navigation from './Navigation';
 import Dashboard from '../../pages/Dashboard';
 import PostList from '../../pages/Dashboard/PostList';

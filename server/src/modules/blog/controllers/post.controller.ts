@@ -14,19 +14,16 @@ export class PostController {
   ) { }
 
   @Get()
-  @UseGuards(LocalGuard)
-  public async getPost() {
-    const result = await this.postRepository.findAndCount({ relations: ["categories"] });
+  public async getPost(@Query() query: any) {
+    const {pageSize, pageNumber} = query
+    const result = await this.postRepository.findAndCount({
+      relations: ["categories"], 
+      skip: (pageNumber-1) * pageSize,
+      take: pageSize,
+    });
     return createResult({
-      data: result[0],
+      list: result[0],
       count: result[1],
     });
   }
-
-  @Post()
-  @UseGuards(LocalGuard)
-  public async createPost(@Body() data: any) {
-    return await this.postRepository.save(data);
-  }
-
 }

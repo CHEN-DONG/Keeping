@@ -18,7 +18,11 @@ axios.interceptors.response.use((response) => {
   return response;
 }, (error) => {
   // Do something with response error
-  if (error.response.status === 401) message.error('登陆失败');
+  const status = error.response.status;
+  if (status === 401) message.error('登陆失败');
+  if (status === 403) {
+    message.error('无权限');
+  }
   return Promise.reject(error);
 });
 

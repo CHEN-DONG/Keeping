@@ -1,20 +1,22 @@
 import React from 'react';
 import {
-  Form, Icon, Input, Button, Checkbox, Upload,
+  Form, Icon, Input, Button, Checkbox, Upload, message,
 } from 'antd';
+import { withRouter } from 'react-router-dom';
 
 import WrappedForm from '../../../components/WrappedForm';
 import MarkdownEditor from '../../../components/MarkdownEditor';
 import axios from '../../../axios';
 
-export default class CreatePost extends React.Component {
+class CreatePost extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     this.refs.postForm.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
-        axios.post('post', values).then((res) => {
-          console.log(res);
+        axios.post('admin/post', values).then(() => {
+          message.success('创建成功');
+          this.props.history.push('/dashboard/post/list');
         });
       }
     });
@@ -41,3 +43,5 @@ export default class CreatePost extends React.Component {
     );
   }
 }
+
+export default withRouter(CreatePost);
