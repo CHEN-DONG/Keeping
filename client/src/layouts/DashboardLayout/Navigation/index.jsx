@@ -19,7 +19,7 @@ class Navigation extends React.Component {
         },
         {
           name: '新建文章',
-          path: '/dashboard/post/create',
+          path: '/dashboard/post/edit',
           icon: 'form',
         },
         {

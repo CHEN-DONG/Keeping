@@ -23,6 +23,9 @@ export abstract class BaseEntity {
   @Column("date", { name: "update_date", nullable: true })
   public updateDate: Date;
 
+  @Column("boolean", { name: "is_delete", default: false })
+  public isDelete: Boolean;
+
   @BeforeInsert()
   public create() {
     this.createDate = new Date();

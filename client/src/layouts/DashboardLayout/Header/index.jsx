@@ -25,7 +25,7 @@ class Header extends React.Component {
     axios.post('auth/logout')
       .then(() => {
         message.success('注销成功');
-        //sessionStorage.removeItem('isLogin');
+        sessionStorage.removeItem('isLogin');
         this.props.history.push('/common/entry');
       });
   }

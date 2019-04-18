@@ -8,16 +8,27 @@ import WrappedForm from '../../../components/WrappedForm';
 import MarkdownEditor from '../../../components/MarkdownEditor';
 import axios from '../../../axios';
 
-class CreatePost extends React.Component {
+class EditPost extends React.Component {
+  state = {
+    id: 0,
+  }
+
   handleSubmit = (e) => {
     e.preventDefault();
     this.refs.postForm.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
-        axios.post('admin/post', values).then(() => {
-          message.success('创建成功');
-          this.props.history.push('/dashboard/post/list');
-        });
+        if (this.state.id == 0) {
+          axios.post('admin/post', values).then(() => {
+            message.success('创建成功');
+            this.props.history.push('/dashboard/post/list');
+          });
+        } else {
+          axios.put(`admin/post/${this.state.id}`, values).then(() => {
+            message.success('修改成功');
+            this.props.history.push('/dashboard/post/list');
+          });
+        }
       }
     });
   }
@@ -42,6 +53,25 @@ class CreatePost extends React.Component {
       </div>
     );
   }
+
+  initData() {
+    // eslint-disable-next-line eqeqeq
+    if (this.state.id == 0) return;
+    axios.get(`admin/post/${this.state.id}`).then((res) => {
+      const post = res.data;
+      this.refs.postForm.setFieldsValue({
+        title: post.title,
+        brief: post.brief,
+        content: post.content,
+      });
+    });
+  }
+
+  componentDidMount() {
+    this.setState({
+      id: this.props.match.params.id,
+    }, this.initData);
+  }
 }
 
-export default withRouter(CreatePost);
+export default withRouter(EditPost);

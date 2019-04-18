@@ -5,7 +5,7 @@ import Header from './Header/index';
 import Navigation from './Navigation';
 import Dashboard from '../../pages/Dashboard';
 import PostList from '../../pages/Dashboard/PostList';
-import CreatePost from '../../pages/Dashboard/CreatePost';
+import EditPost from '../../pages/Dashboard/EditPost';
 import ManageUser from '../../pages/Dashboard/ManageUser';
 import ManageRole from '../../pages/Dashboard/ManageRole';
 
@@ -20,7 +20,8 @@ export default class DashboardLayout extends React.Component {
             <Navigation />
             <Switch>
               <Route path="/dashboard/post/list" component={PostList} />
-              <Route path="/dashboard/post/create" component={CreatePost} />
+              <Route path="/dashboard/post/edit/:id" component={EditPost} />
+              <Redirect from="/dashboard/post/edit" to="/dashboard/post/edit/0" />
               <Route path="/dashboard/user" component={ManageUser} />
               <Route path="/dashboard/role" component={ManageRole} />
               <Route path="/dashboard" component={Dashboard} />

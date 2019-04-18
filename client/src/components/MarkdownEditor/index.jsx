@@ -4,8 +4,9 @@ import 'easymde/dist/easymde.min.css';
 import './index.scss';
 
 export default class MarkdownEditor extends React.Component {
+
   state = {
-    mdValue: '',
+    mdValue: this.props.value || '',
   }
 
   render() {
@@ -31,4 +32,13 @@ export default class MarkdownEditor extends React.Component {
     const onChange = this.props.onChange;
     if (onChange) onChange(value);
   };
+
+  static getDerivedStateFromProps(nextProps) {
+    if ('value' in nextProps) {
+      return {
+        mdValue: nextProps.value,
+      };
+    }
+    return null;
+  }
 }

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { message } from 'antd';
+import { withRouter } from 'react-router-dom'
 
 axios.defaults.baseURL = 'http://localhost:7000/';
 axios.defaults.withCredentials = true;
@@ -22,6 +23,7 @@ axios.interceptors.response.use((response) => {
   if (status === 401) message.error('登陆失败');
   if (status === 403) {
     message.error('无权限');
+    window.location.href = '/common/entry';
   }
   return Promise.reject(error);
 });

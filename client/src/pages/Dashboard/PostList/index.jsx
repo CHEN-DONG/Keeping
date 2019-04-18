@@ -1,5 +1,6 @@
 import React from 'react';
-import { Table, Divider, Tag, Modal } from 'antd';
+import { Table, Divider, Tag, Modal, message } from 'antd';
+import { Link } from 'react-router-dom';
 import axios from '../../../axios';
 
 const { Column } = Table;
@@ -58,9 +59,11 @@ export default class PostList extends React.Component {
             key="action"
             render={(text, record) => (
               <span>
-                <a onClick={this.showModal}>Edit</a>
+                <Link to={`/dashboard/post/edit/${record.id}`}>
+                  Edit
+                </Link>
                 <Divider type="vertical" />
-                <a>Delete</a>
+                <a onClick={() => this.handleDelete(record.id)}>Delete</a>
               </span>
             )}
           />
@@ -106,6 +109,13 @@ export default class PostList extends React.Component {
         pagination,
         loading: false,
       });
+    });
+  }
+
+  handleDelete = (id) => {
+    axios.delete(`admin/post/${id}`).then(() => {
+      this.handleFecthData();
+      message.success('删除成功');
     });
   }
 
