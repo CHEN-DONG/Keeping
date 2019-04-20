@@ -1,7 +1,9 @@
 import React from 'react';
 import { Table, Divider, Tag, Modal, message } from 'antd';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 import axios from '../../../axios';
+
 
 const { Column } = Table;
 
@@ -105,7 +107,11 @@ export default class PostList extends React.Component {
     }).then((res) => {
       pagination.total = res.data.count;
       this.setState({
-        data: res.data.list,
+        data: res.data.list.map((item) => {
+          item.status = item.status === 1 ? '发布' : '未发布';
+          item.updateDate = moment(item.updateDate).add(8, 'h').format('YYYY-M-D HH:mm');
+          return item;
+        }),
         pagination,
         loading: false,
       });

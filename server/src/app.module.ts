@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { CommonService } from './common/common.service';
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { DATABASE_CONFIG } from './configs/database.config'
 import { BlogModule } from './modules/blog/blog.module';
@@ -14,7 +13,7 @@ import { DashboardModule } from './modules/dashboard/dashboard.module';
     AuthModule,
     DashboardModule
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [CommonService],
 })
 export class AppModule { }
