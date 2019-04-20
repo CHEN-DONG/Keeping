@@ -109,7 +109,7 @@ export default class PostList extends React.Component {
       this.setState({
         data: res.data.list.map((item) => {
           item.status = item.status === 1 ? '发布' : '未发布';
-          item.updateDate = moment(item.updateDate).add(8, 'h').format('YYYY-M-D HH:mm');
+          item.updateDate = moment(item.updateDate).utcOffset(8).format('YYYY-M-D HH:mm');
           return item;
         }),
         pagination,

@@ -1,16 +1,19 @@
-import { Body, Controller, Delete, Get, Param, Post, Query, Put, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Query, Put, UseGuards, Req } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import _ from "lodash";
 import { PostEntity } from "../../blog/entities/post.entity";
 import { LocalGuard } from "../../../guards/local.guard";
 import { createResult } from 'src/common/utils';
+import { CommonService } from "src/common/common.service";
+import { Request } from 'express';
 
 @Controller("admin/post")
 export class PostController {
 	constructor(
 		@InjectRepository(PostEntity)
 		private readonly postRepository: Repository<PostEntity>,
+		private readonly commonService: CommonService
 	) { }
 
 	@Get()
@@ -40,8 +43,9 @@ export class PostController {
 
 	@Post()
 	@UseGuards(LocalGuard)
-	public async createPost(@Body() data: any) {
-		return await this.postRepository.save(data);
+	public async createPost(@Body() data: any,  @Req() request: Request) {
+		return await this.commonService.create(PostEntity, data);
+		// return await this.postRepository.save(data);
 	}
 
 	@Put(':id')
