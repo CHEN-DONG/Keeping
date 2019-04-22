@@ -19,19 +19,10 @@ export class PostController {
 	@Get()
 	@UseGuards(LocalGuard)
 	public async getPost(@Query() query: any) {
-		const { pageSize, pageNumber } = query
-		const result = await this.postRepository.findAndCount({
-			where: {
-				isDelete: false,
-			},
+		const result = await this.commonService.getListAndCount(PostEntity, {
 			relations: ["categories"],
-			skip: (pageNumber - 1) * pageSize,
-			take: pageSize,
 		});
-		return createResult({
-			list: result[0],
-			count: result[1],
-		});
+		return createResult(result);
 	}
 
 	@Get(':id')
@@ -51,13 +42,13 @@ export class PostController {
 	@Put(':id')
 	@UseGuards(LocalGuard)
 	public async updatePost(@Param('id') id: any, @Body() data: any) {
-		return await this.postRepository.update(id, data);
+		return await this.commonService.update(PostEntity, id, data);
 	}
 
 	@Delete(':id')
 	@UseGuards(LocalGuard)
 	public async deletePost(@Param('id') id: any) {
-		return await this.postRepository.update(id, { isDelete: true });
+		return await this.commonService.update(PostEntity, id, { isDelete: true });
 	}
 
 }

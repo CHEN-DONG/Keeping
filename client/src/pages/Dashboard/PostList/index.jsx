@@ -66,6 +66,8 @@ export default class PostList extends React.Component {
                 </Link>
                 <Divider type="vertical" />
                 <a onClick={() => this.handleDelete(record.id)}>Delete</a>
+                <Divider type="vertical" />
+                <a onClick={() => this.handlePublish(record.id)}>Publish</a>
               </span>
             )}
           />
@@ -120,11 +122,19 @@ export default class PostList extends React.Component {
 
   handleDelete = (id) => {
     axios.delete(`admin/post/${id}`).then(() => {
-      this.handleFecthData();
       message.success('删除成功');
+      this.handleFecthData();
     });
   }
 
+  handlePublish = (id) => {
+    axios.put(`admin/post/${id}`, {
+      status: 1,
+    }).then(() => {
+      message.success('发布成功');
+      this.handleFecthData();
+    });
+  }
 
   showModal = () => {
     this.setState({
