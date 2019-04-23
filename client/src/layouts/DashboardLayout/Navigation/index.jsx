@@ -24,7 +24,7 @@ class Navigation extends React.Component {
         },
         {
           name: '分类',
-          path: '/',
+          path: '/dashboard/category',
           icon: 'form',
         },
       ],

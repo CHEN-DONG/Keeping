@@ -16,11 +16,11 @@ export class CommonService {
 		data.createDate = new Date();
 		data.updateDate = new Date();
 		data.createrId = this.request.user ? this.request.user.id : 0;
-		data.updateId = this.request.user ? this.request.user.id : 0;
+		data.updaterId = this.request.user ? this.request.user.id : 0;
 		return await this.entityManager.insert(entity, data);
 	}
 
-	async getListAndCount(entity: any, options: any) {
+	async getListAndCount(entity: any, options?: any) {
 		const { pageSize = 10, pageNumber = 1, where = {}} = this.request.query;
 		const result = await this.entityManager.findAndCount(entity, Object.assign({
 			where: Object.assign({
@@ -40,7 +40,7 @@ export class CommonService {
 
 	async update(entity: any, id: number, data: any) {
 		data.updateDate = new Date();
-		data.updateId = this.request.user ? this.request.user.id : 0;
+		data.updaterId = this.request.user ? this.request.user.id : 0;
 		return await this.entityManager.update(entity, id, data); 
 	}
 }

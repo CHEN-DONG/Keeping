@@ -59,6 +59,7 @@ export default class PostList extends React.Component {
           <Column
             title="Action"
             key="action"
+            width="180px"
             render={(text, record) => (
               <span>
                 <Link to={`/dashboard/post/edit/${record.id}`}>
@@ -67,7 +68,10 @@ export default class PostList extends React.Component {
                 <Divider type="vertical" />
                 <a onClick={() => this.handleDelete(record.id)}>Delete</a>
                 <Divider type="vertical" />
-                <a onClick={() => this.handlePublish(record.id)}>Publish</a>
+                {
+                  record.status === '发布' ? <a onClick={() => this.changeStatus(record.id, 0)}>取消</a>
+                    : <a onClick={() => this.changeStatus(record.id, 1)}>发布</a>
+                }
               </span>
             )}
           />
@@ -127,11 +131,12 @@ export default class PostList extends React.Component {
     });
   }
 
-  handlePublish = (id) => {
+  changeStatus = (id, status) => {
     axios.put(`admin/post/${id}`, {
-      status: 1,
+      status,
     }).then(() => {
-      message.success('发布成功');
+      const msg = status === 1 ? '发布成功' : '取消成功';
+      message.success(msg);
       this.handleFecthData();
     });
   }
