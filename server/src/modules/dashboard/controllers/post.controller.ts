@@ -28,7 +28,9 @@ export class PostController {
 	@Get(':id')
 	@UseGuards(LocalGuard)
 	public async getPostDetail(@Param('id') id: any) {
-		const result = await this.postRepository.findOne(id);
+		const result = await this.postRepository.findOne(id, {
+			relations: ["categories"],
+		});
 		return createResult(result);
 	}
 

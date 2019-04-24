@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Divider, Tag, Modal, message } from 'antd';
+import { Table, Divider, Tag, message } from 'antd';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import axios from '../../../axios';
@@ -10,9 +10,6 @@ const { Column } = Table;
 export default class PostList extends React.Component {
   state = {
     data: [],
-    ModalText: 'Content of the modal',
-    visible: false,
-    confirmLoading: false,
     loading: false,
     pagination: {
       total: 0,
@@ -52,7 +49,7 @@ export default class PostList extends React.Component {
             key="categories"
             render={categories => (
               <span>
-                {categories.map(category => <Tag color="blue" key={category}>{category}</Tag>)}
+                {categories.map(category => <Tag color="blue" key={category.id}>{category.name}</Tag>)}
               </span>
             )}
           />
@@ -69,22 +66,13 @@ export default class PostList extends React.Component {
                 <a onClick={() => this.handleDelete(record.id)}>Delete</a>
                 <Divider type="vertical" />
                 {
-                  record.status === '发布' ? <a onClick={() => this.changeStatus(record.id, 0)}>取消</a>
-                    : <a onClick={() => this.changeStatus(record.id, 1)}>发布</a>
+                  record.status === '发布' ? <a onClick={() => this.changeStatus(record.id, 0)}>Cancel</a>
+                    : <a onClick={() => this.changeStatus(record.id, 1)}>Publish</a>
                 }
               </span>
             )}
           />
         </Table>
-        <Modal
-          title="Title"
-          visible={this.state.visible}
-          onOk={this.handleOk}
-          confirmLoading={this.state.confirmLoading}
-          onCancel={this.handleCancel}
-        >
-          <p>{this.state.ModalText}</p>
-        </Modal>
       </div>
     );
   }
@@ -93,7 +81,7 @@ export default class PostList extends React.Component {
     this.handleFecthData();
   }
 
-  handleTableChange = (pagination, filters, sorter) => {
+  handleTableChange = (pagination) => {
     const { pagination: pager } = this.state;
     pager.current = pagination.current;
     this.setState({
@@ -138,20 +126,6 @@ export default class PostList extends React.Component {
       const msg = status === 1 ? '发布成功' : '取消成功';
       message.success(msg);
       this.handleFecthData();
-    });
-  }
-
-  showModal = () => {
-    this.setState({
-      visible: true,
-    });
-  }
-
-
-  handleCancel = () => {
-    console.log('Clicked cancel button');
-    this.setState({
-      visible: false,
     });
   }
 }

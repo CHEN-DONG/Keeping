@@ -21,5 +21,6 @@ export const DATABASE_CONFIG: ConnectionOptions = {
   synchronize: true,
   type: "postgres",
   entities: [process.cwd() + "/src/modules/**/**.entity{.ts,.js}"],
+  logging: true,
 };
 

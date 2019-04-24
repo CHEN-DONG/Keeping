@@ -12,5 +12,9 @@
   background: #fff;
   padding: 30px 20px;
   overflow: auto;
-  height: calc(100vh - 60px);
+  min-height: calc(100vh - 60px);
+}
+.table-operation{
+  text-align: right;
+  padding: 10px;
 }

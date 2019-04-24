@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Form, Icon, Input, Button, Checkbox, Upload, message,
+  Form, Icon, Input, Button, Checkbox, Upload, message, Select,
 } from 'antd';
 import { withRouter } from 'react-router-dom';
 
@@ -11,6 +11,7 @@ import axios from '../../../axios';
 class EditPost extends React.Component {
   state = {
     id: 0,
+    categoryData: [],
   }
 
   handleSubmit = (e) => {
@@ -18,6 +19,11 @@ class EditPost extends React.Component {
     this.refs.postForm.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
+        values.categories = values.categories.map((item) => {
+          return {
+            id: item,
+          };
+        });
         if (this.state.id == 0) {
           axios.post('admin/post', values).then(() => {
             message.success('创建成功');
@@ -39,6 +45,15 @@ class EditPost extends React.Component {
         <WrappedForm ref="postForm">
           <Input key="title" label="标题" rules={[{ required: true }]} />
           <Input.TextArea rows={4} key="brief" label="简介" />
+          <Select key="categories" label="分类" mode="multiple">
+            {
+              this.state.categoryData.map(item => (
+                <Select.Option key={item.id} value={item.id}>
+                  {item.name}
+                </Select.Option>
+              ))
+            }
+          </Select>
           <Upload.Dragger key="cover" label="背景图" name="files" action="/upload.do">
             <p className="ant-upload-drag-icon">
               <Icon type="inbox" />
@@ -55,6 +70,11 @@ class EditPost extends React.Component {
   }
 
   initData() {
+    axios.get('admin/category').then((res) => {
+      this.setState({
+        categoryData: res.data.list,
+      });
+    });
     // eslint-disable-next-line eqeqeq
     if (this.state.id == 0) return;
     axios.get(`admin/post/${this.state.id}`).then((res) => {
@@ -63,6 +83,9 @@ class EditPost extends React.Component {
         title: post.title,
         brief: post.brief,
         content: post.content,
+        categories: post.categories.map((item) => {
+          return item.id;
+        }),
       });
     });
   }
