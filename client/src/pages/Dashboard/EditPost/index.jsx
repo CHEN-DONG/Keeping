@@ -16,7 +16,7 @@ class EditPost extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.refs.postForm.validateFields((err, values) => {
+    this.postForm.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
         values.categories = values.categories.map((item) => {
@@ -40,12 +40,13 @@ class EditPost extends React.Component {
   }
 
   render() {
+    const PostFrom = Form.create({})(WrappedForm);
     return (
       <div className="create-post-container">
-        <WrappedForm ref="postForm">
+        <PostFrom wrappedComponentRef={inst => this.postForm = inst}>
           <Input key="title" label="标题" rules={[{ required: true }]} />
           <Input.TextArea rows={4} key="brief" label="简介" />
-          <Select key="categories" label="分类" mode="multiple">
+          <Select key="categories" label="分类" mode="multiple" rules={[{ required: true, type: 'array' }]} filterOption={this.hanldeFilter}>
             {
               this.state.categoryData.map(item => (
                 <Select.Option key={item.id} value={item.id}>
@@ -54,17 +55,27 @@ class EditPost extends React.Component {
               ))
             }
           </Select>
-          <Upload.Dragger key="cover" label="背景图" name="files" action="/upload.do">
-            <p className="ant-upload-drag-icon">
-              <Icon type="inbox" />
-            </p>
-            <p className="ant-upload-hint">点击或拖拽上传图片</p>
+          <Upload.Dragger key="cover"
+            label="背景图"
+            name="file"
+            customRequest={this.handleUpload}
+            action="/upload"
+            listType="picture"
+            accept="image/*"
+            getValueFromEvent={this.normFile}
+          >
+            <div>
+              <p className="ant-upload-drag-icon">
+                <Icon type="inbox" />
+              </p>
+              <p className="ant-upload-hint">点击或拖拽上传图片</p>
+            </div>
           </Upload.Dragger>
           <MarkdownEditor key="content" label="内容" rules={[{ required: true }]} />
           <Button key="submit" type="primary" className="login-form-button" onClick={this.handleSubmit}>
             完成
           </Button>
-        </WrappedForm>
+        </PostFrom>
       </div>
     );
   }
@@ -79,15 +90,64 @@ class EditPost extends React.Component {
     if (this.state.id == 0) return;
     axios.get(`admin/post/${this.state.id}`).then((res) => {
       const post = res.data;
-      this.refs.postForm.setFieldsValue({
+      this.postForm.props.form.setFieldsValue({
         title: post.title,
         brief: post.brief,
         content: post.content,
+        cover: post.cover,
         categories: post.categories.map((item) => {
           return item.id;
         }),
       });
     });
+  }
+
+  normFile = (e) => {
+    return e.file.response && e.file.response.path;
+  }
+
+  hanldeFilter = (input, option) => {
+    this.setState({ id: 1 });
+    return option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0;
+  }
+
+  handleFileChange = (props, changedValues, allValues) => {
+    console.log(props, changedValues, allValues);
+    // if (changedValues.cover) {
+    //   // there is a question
+    // }
+  }
+
+  handleUpload = ({
+    action,
+    data,
+    file,
+    filename,
+    headers,
+    onError,
+    onProgress,
+    onSuccess,
+    withCredentials }) => {
+    const formData = new FormData();
+    if (data) {
+      // eslint-disable-next-line array-callback-return
+      Object.keys(data).map((key) => {
+        formData.append(key, data[key]);
+      });
+    }
+    formData.append(filename, file);
+    axios
+      .post(action, formData, {
+        withCredentials,
+        headers,
+        onUploadProgress: ({ total, loaded }) => {
+          onProgress({ percent: Math.round(loaded / total * 100).toFixed(2) }, file);
+        },
+      })
+      .then(({ data: response }) => {
+        onSuccess(response, file);
+      })
+      .catch(onError);
   }
 
   componentDidMount() {

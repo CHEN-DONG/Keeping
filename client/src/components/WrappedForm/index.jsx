@@ -4,7 +4,7 @@ import {
   Form,
 } from 'antd';
 
-class AntForm extends React.Component {
+class WrappedForm extends React.Component {
   render() {
     const { getFieldDecorator } = this.props.form;
     return (
@@ -12,12 +12,13 @@ class AntForm extends React.Component {
         {
           React.Children.map(this.props.children, (child) => {
             if (!child) return false;
-            const { label, initialValue, rules } = child.props;
+            const { label, initialValue, rules, getValueFromEvent } = child.props;
             return (
               <Form.Item label={label}>
                 {getFieldDecorator(child.key, {
                   initialValue,
                   rules,
+                  getValueFromEvent,
                 })(React.cloneElement(child))}
               </Form.Item>
             );
@@ -28,5 +29,4 @@ class AntForm extends React.Component {
   }
 }
 
-const WrappedForm = Form.create({ name: 'wrappend' })(AntForm);
 export default WrappedForm;

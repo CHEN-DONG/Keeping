@@ -7,8 +7,12 @@ import * as ConnectPgSimple from "connect-pg-simple";
 import * as passport from "passport";
 import * as cors from "cors";
 import { NestFactory } from '@nestjs/core';
+import { NestExpressApplication } from '@nestjs/platform-express';
 import { AppModule } from './app.module';
 import { APP_CONFIG } from "./configs/app.config";
+import { join } from 'path';
+import * as express from 'express';
+import * as serveStatic from 'serve-static';
 
 async function bootstrap() {
   try {
@@ -39,7 +43,11 @@ async function bootstrap() {
     app.use(cors({
       origin: ['http://localhost:3000'],
       credentials: true
-    }))
+    }));
+    console.log(join(__dirname, '..', 'public'));
+    app.use('/public', serveStatic(join(__dirname, '..','public'), {}));
+    // app.useStaticAssets(join(__dirname, '..', 'public'));
+    
     await app.listen(port);
   } catch (error) {
     console.log(error)

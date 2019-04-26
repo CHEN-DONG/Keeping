@@ -7,6 +7,7 @@ const {
     PORT,
     ROLE_GUARD_ENABLE,
     WEB_HOST,
+    APP_HOST,
 
     DATABASE_PORT,
     DATABASE_HOST,
@@ -19,6 +20,8 @@ const {
 
     LOCAL_PASSWORD_FIELD,
     LOCAL_USERNAME_FIELD,
+
+    UPLOAD_PATH_IMAGE,
   },
 } = process;
 
@@ -28,6 +31,7 @@ export const APP_CONFIG = {
   port: PORT,
   roleGuardEnable: ROLE_GUARD_ENABLE,
   webHost: WEB_HOST,
+  appHost: APP_HOST,
 
   databaseHost: _.toString(DATABASE_HOST),
   databaseName: _.toString(DATABASE_NAME),
@@ -40,4 +44,6 @@ export const APP_CONFIG = {
 
   localPasswordField: LOCAL_PASSWORD_FIELD,
   localUsernameField: LOCAL_USERNAME_FIELD,
+
+  uploadImagePath: UPLOAD_PATH_IMAGE,
 };

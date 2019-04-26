@@ -5,7 +5,7 @@
 .data-table-container{
   flex: 1;
   background: #fff;
-  height: calc(100vh - 60px);
+  min-height: calc(100vh - 60px);
 }
 .create-post-container{
   flex:1;
@@ -17,4 +17,10 @@
 .table-operation{
   text-align: right;
   padding: 10px;
+}
+.upload-preview{
+  height: 150px;
+  img{
+    height: 100%;
+  }
 }
