@@ -4,7 +4,7 @@ import {
   Form,
 } from 'antd';
 
-class WrappedForm extends React.Component {
+class AntForm extends React.Component {
   render() {
     const { getFieldDecorator } = this.props.form;
     return (
@@ -29,4 +29,5 @@ class WrappedForm extends React.Component {
   }
 }
 
+const WrappedForm = Form.create({ name: 'wrappend' })(AntForm);
 export default WrappedForm;

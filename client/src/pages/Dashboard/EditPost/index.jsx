@@ -12,6 +12,7 @@ class EditPost extends React.Component {
   state = {
     id: 0,
     categoryData: [],
+    filePath: null,
   }
 
   handleSubmit = (e) => {
@@ -40,10 +41,9 @@ class EditPost extends React.Component {
   }
 
   render() {
-    const PostFrom = Form.create({})(WrappedForm);
     return (
       <div className="create-post-container">
-        <PostFrom wrappedComponentRef={inst => this.postForm = inst}>
+        <WrappedForm wrappedComponentRef={inst => this.postForm = inst}>
           <Input key="title" label="标题" rules={[{ required: true }]} />
           <Input.TextArea rows={4} key="brief" label="简介" />
           <Select key="categories" label="分类" mode="multiple" rules={[{ required: true, type: 'array' }]} filterOption={this.hanldeFilter}>
@@ -60,22 +60,29 @@ class EditPost extends React.Component {
             name="file"
             customRequest={this.handleUpload}
             action="/upload"
-            listType="picture"
             accept="image/*"
+            showUploadList={false}
             getValueFromEvent={this.normFile}
+            onChange={this.handleFileChange}
           >
             <div>
-              <p className="ant-upload-drag-icon">
-                <Icon type="inbox" />
-              </p>
-              <p className="ant-upload-hint">点击或拖拽上传图片</p>
+              {
+                this.state.filePath ? <img src={this.state.filePath} alt="" /> : (
+                  <div>
+                    <p className="ant-upload-drag-icon">
+                      <Icon type="inbox" />
+                    </p>
+                    <p className="ant-upload-hint">点击或拖拽上传图片</p>
+                  </div>
+                )
+              }
             </div>
           </Upload.Dragger>
           <MarkdownEditor key="content" label="内容" rules={[{ required: true }]} />
           <Button key="submit" type="primary" className="login-form-button" onClick={this.handleSubmit}>
             完成
           </Button>
-        </PostFrom>
+        </WrappedForm>
       </div>
     );
   }
@@ -99,23 +106,21 @@ class EditPost extends React.Component {
           return item.id;
         }),
       });
+      this.setState({ filePath: post.cover });
     });
   }
 
   normFile = (e) => {
+    console.log('normFile');
     return e.file.response && e.file.response.path;
   }
 
   hanldeFilter = (input, option) => {
-    this.setState({ id: 1 });
     return option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0;
   }
 
-  handleFileChange = (props, changedValues, allValues) => {
-    console.log(props, changedValues, allValues);
-    // if (changedValues.cover) {
-    //   // there is a question
-    // }
+  handleFileChange = ({ file }) => {
+    this.setState({ filePath: file.response ? file.response.path : null });
   }
 
   handleUpload = ({
