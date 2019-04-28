@@ -19,4 +19,4 @@ dist
 !.vscode/launch.json
 
 #upload
-/uploads
+/public
