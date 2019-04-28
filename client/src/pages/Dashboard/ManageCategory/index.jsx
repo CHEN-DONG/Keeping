@@ -19,6 +19,8 @@ export default class ManageCategory extends React.Component {
       current: 1,
     },
     editId: 0,
+    filePath: null,
+    confirmLoading: false,
   }
 
   render() {
@@ -70,16 +72,34 @@ export default class ManageCategory extends React.Component {
           onOk={this.handleOk}
           onCancel={this.handleCancel}
           forceRender
+          confirmLoading={this.state.confirmLoading}
         >
           <div className="edit-form">
             <WrappedForm ref="categoryForm">
               <Input key="name" label="名称" rules={[{ required: true }]} />
               <Input.TextArea rows={4} key="brief" label="简介" />
-              <Upload.Dragger key="cover" label="图片" name="files" action="/upload.do">
-                <p className="ant-upload-drag-icon">
-                  <Icon type="inbox" />
-                </p>
-                <p className="ant-upload-hint">点击或拖拽上传图片</p>
+              <Upload.Dragger
+                key="cover"
+                label="背景图"
+                name="file"
+                customRequest={this.handleUpload}
+                action="/upload"
+                accept="image/*"
+                showUploadList={false}
+                getValueFromEvent={this.normFile}
+              >
+                <div>
+                  {
+                    this.state.filePath ? <img src={this.state.filePath} alt="" /> : (
+                      <div>
+                        <p className="ant-upload-drag-icon">
+                          <Icon type="inbox" />
+                        </p>
+                        <p className="ant-upload-hint">点击或拖拽上传图片</p>
+                      </div>
+                    )
+                  }
+                </div>
               </Upload.Dragger>
             </WrappedForm>
           </div>
@@ -137,8 +157,9 @@ export default class ManageCategory extends React.Component {
       this.refs.categoryForm.setFieldsValue({
         name: record.name,
         brief: record.brief,
-        files: record.content,
+        cover: record.cover,
       });
+      this.setState({ filePath: record.cover });
     });
   }
 
@@ -146,11 +167,13 @@ export default class ManageCategory extends React.Component {
     this.refs.categoryForm.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
+        this.setState({ confirmLoading: true });
         if (this.state.editId == 0) {
           axios.post('admin/category', values).then(() => {
             message.success('创建成功');
             this.setState({
               visible: false,
+              confirmLoading: false,
             }, this.handleFecthData);
           });
         } else {
@@ -158,6 +181,7 @@ export default class ManageCategory extends React.Component {
             message.success('修改成功');
             this.setState({
               visible: false,
+              confirmLoading: false,
             }, this.handleFecthData);
           });
         }
@@ -165,11 +189,48 @@ export default class ManageCategory extends React.Component {
     });
   }
 
-
   handleCancel = () => {
     console.log('Clicked cancel button');
     this.setState({
       visible: false,
     });
+  }
+
+  normFile = (e) => {
+    console.log('11');
+    this.setState({ filePath: e.file.response ? e.file.response.path : null });
+    return e.file.response && e.file.response.path;
+  }
+
+  handleUpload = ({
+    action,
+    data,
+    file,
+    filename,
+    headers,
+    onError,
+    onProgress,
+    onSuccess,
+    withCredentials }) => {
+    const formData = new FormData();
+    if (data) {
+      // eslint-disable-next-line array-callback-return
+      Object.keys(data).map((key) => {
+        formData.append(key, data[key]);
+      });
+    }
+    formData.append(filename, file);
+    axios
+      .post(action, formData, {
+        withCredentials,
+        headers,
+        onUploadProgress: ({ total, loaded }) => {
+          onProgress({ percent: Math.round(loaded / total * 100).toFixed(2) }, file);
+        },
+      })
+      .then(({ data: response }) => {
+        onSuccess(response, file);
+      })
+      .catch(onError);
   }
 }

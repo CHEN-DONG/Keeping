@@ -55,7 +55,8 @@ class EditPost extends React.Component {
               ))
             }
           </Select>
-          <Upload.Dragger key="cover"
+          <Upload.Dragger
+            key="cover"
             label="背景图"
             name="file"
             customRequest={this.handleUpload}
@@ -63,7 +64,6 @@ class EditPost extends React.Component {
             accept="image/*"
             showUploadList={false}
             getValueFromEvent={this.normFile}
-            onChange={this.handleFileChange}
           >
             <div>
               {
@@ -111,16 +111,12 @@ class EditPost extends React.Component {
   }
 
   normFile = (e) => {
-    console.log('normFile');
+    this.setState({ filePath: e.file.response ? e.file.response.path : null });
     return e.file.response && e.file.response.path;
   }
 
   hanldeFilter = (input, option) => {
     return option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0;
-  }
-
-  handleFileChange = ({ file }) => {
-    this.setState({ filePath: file.response ? file.response.path : null });
   }
 
   handleUpload = ({
