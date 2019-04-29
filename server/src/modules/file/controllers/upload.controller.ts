@@ -9,7 +9,7 @@ import { Request } from 'express';
 import { FileInterceptor } from '@nestjs/platform-express'
 import { APP_CONFIG } from '../../../configs/app.config';
 import * as multer from 'multer';
-import { join } from 'path';
+import { sep } from 'path';
 
 @Controller("upload")
 export class UploadController {
@@ -21,7 +21,6 @@ export class UploadController {
 	@UseInterceptors(FileInterceptor('file', {
 		storage: multer.diskStorage({
 			destination: (req, file, cb) => {
-				console.log(req.file)
 				cb(null, `./${APP_CONFIG.uploadImagePath}`);
 			},
 			filename: (req, file, cb) => {
@@ -30,7 +29,7 @@ export class UploadController {
 		}),
 	}))
 	async uploade(@UploadedFile() file) {
-		file.path = `${APP_CONFIG.appHost}/${file.path}`;
+		file.path = `${APP_CONFIG.appHost}/${file.path.split(sep).join('/')}`;
 		return file;
 	}
 }

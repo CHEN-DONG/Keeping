@@ -77,7 +77,7 @@ export default class PostList extends React.Component {
     );
   }
 
-  componentDidMount = () => {
+  componentDidMount() {
     this.handleFecthData();
   }
 

@@ -108,7 +108,7 @@ export default class ManageCategory extends React.Component {
     );
   }
 
-  componentDidMount = () => {
+  componentDidMount() {
     this.handleFecthData();
   }
 

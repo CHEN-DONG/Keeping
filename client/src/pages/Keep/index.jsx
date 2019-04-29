@@ -1,18 +1,9 @@
 import React from 'react';
 import { Icon, List } from 'antd';
 import { Link } from 'react-router-dom';
+import axios from '../../axios';
 import './index.scss';
 
-const listData = [];
-for (let i = 0; i < 23; i++) {
-  listData.push({
-    href: 'http://ant.design',
-    title: `ant design part ${i}`,
-    avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-    description: 'Ant Design, a design language for background applications, is refined by Ant UED Team.',
-    content: 'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
-  });
-}
 
 const IconText = ({ type, text }) => (
   <span>
@@ -22,19 +13,31 @@ const IconText = ({ type, text }) => (
 );
 
 export default class Keep extends React.Component {
+
+  state = {
+    data: [],
+    loading: false,
+    pagination: {
+      total: 0,
+      pageSize: 10,
+      current: 1,
+    },
+  }
+
   render() {
     return (
       <div className="home-container main-container">
         <List
           itemLayout="vertical"
           size="small"
-          dataSource={listData}
+          loading={this.state.loading}
+          dataSource={this.state.data}
           renderItem={item => (
-            <Link to="/post/1">
+            <Link to={`/post/${item.id}`}>
               <List.Item
                 key={item.title}
                 actions={[<IconText type="heart-o" text="0" />]}
-                extra={<div className="item-cover" style={{ backgroundImage: 'url(' + item.avatar + ')' }} />}
+                extra={<div className="item-cover" style={{ backgroundImage: `url(${item.cover})` }} />}
               >
                 <List.Item.Meta
                   title={item.title}
@@ -55,5 +58,29 @@ export default class Keep extends React.Component {
         />
       </div>
     );
+  }
+
+  componentDidMount() {
+    this.handleFecthData();
+  }
+
+  handleFecthData() {
+    const { pagination } = this.state;
+    this.setState({ loading: true });
+    axios.get('post', {
+      params: {
+        pageSize: pagination.pageSize,
+        pageNumber: pagination.current,
+      },
+    }).then((res) => {
+      pagination.total = res.data.count;
+      this.setState({
+        data: res.data.list.map((item) => {
+          return item;
+        }),
+        pagination,
+        loading: false,
+      });
+    });
   }
 }

@@ -7,6 +7,7 @@ import {
 } from "./entities";
 
 import { PostController, CategoryController } from "./controllers"
+import { CommonService } from "src/common/common.service";
 
 @Module({
   imports: [TypeOrmModule.forFeature([PostEntity, CategoryEntity])],
@@ -14,6 +15,6 @@ import { PostController, CategoryController } from "./controllers"
     PostController,
     CategoryController
   ],
-  providers: [],
+  providers: [CommonService],
 })
 export class BlogModule { }

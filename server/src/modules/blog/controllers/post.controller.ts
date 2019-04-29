@@ -5,25 +5,21 @@ import _ from "lodash";
 import { PostEntity } from "../entities/post.entity";
 import { LocalGuard } from "../../../guards/local.guard";
 import { createResult } from 'src/common/utils';
+import { CommonService } from "src/common/common.service";
 
 @Controller("post")
 export class PostController {
   constructor(
     @InjectRepository(PostEntity)
     private readonly postRepository: Repository<PostEntity>,
+    private readonly commonService: CommonService
   ) { }
 
   @Get()
   public async getPost(@Query() query: any) {
-    const {pageSize, pageNumber} = query
-    const result = await this.postRepository.findAndCount({
-      relations: ["categories"], 
-      skip: (pageNumber-1) * pageSize,
-      take: pageSize,
-    });
-    return createResult({
-      list: result[0],
-      count: result[1],
-    });
+    const result = await this.commonService.getListAndCount(PostEntity, {
+			relations: ["categories"],
+		});
+		return createResult(result);
   }
 }
