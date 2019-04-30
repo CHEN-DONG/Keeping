@@ -20,3 +20,14 @@
     font-size: 18px;
   }
 }
+.list-container{
+  background: #fff;
+}
+.ant-list-split{
+  .vlist-item{
+    &:last-child{
+      background: #fff;
+      border-bottom: 1px solid #e8e8e8;
+    }
+  }
+}

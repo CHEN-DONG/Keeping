@@ -1,6 +1,6 @@
 /* eslint-disable no-plusplus */
 import React from 'react';
-import { Icon, List, Spin, Empty } from 'antd';
+import { Icon, List, Spin } from 'antd';
 import { Link } from 'react-router-dom';
 import WindowScroller from 'react-virtualized/dist/commonjs/WindowScroller';
 import VList from 'react-virtualized/dist/commonjs/List';
@@ -41,6 +41,7 @@ export default class Keep extends React.Component {
     return (
       <Link to={`/post/${item.id}`} key={key}>
         <List.Item
+          className="vlist-item"
           style={style}
           key={item.id}
           actions={[<IconText type="heart-o" text="0" />]}
@@ -104,43 +105,45 @@ export default class Keep extends React.Component {
   render() {
     const { data, loading } = this.state;
     return (
-      <Spin spinning={this.state.loading}>
-      <List>
-        {
-          data.length > 0 && (
-            <WindowScroller>
-              {({ height, isScrolling, onChildScroll, scrollTop }) => (
-                <InfiniteLoader
-                  isRowLoaded={this.isRowLoaded}
-                  loadMoreRows={this.loadMoreRows}
-                  rowCount={data.length}
-                >
-                  {({ onRowsRendered }) => (
-                    <AutoSizer disableHeight>
-                      {({ width }) => (
-                        <VList
-                          autoHeight
-                          height={height}
-                          isScrolling={isScrolling}
-                          onScroll={onChildScroll}
-                          overscanRowCount={2}
-                          rowCount={data.length}
-                          rowHeight={100}
-                          rowRenderer={this.renderItem}
-                          scrollTop={scrollTop}
-                          width={width}
-                          onRowsRendered={onRowsRendered}
-                        />
+      <div className="list-container">
+        <Spin spinning={loading}>
+          <List itemLayout="vertical">
+            {
+              data.length > 0 && (
+                <WindowScroller>
+                  {({ height, isScrolling, onChildScroll, scrollTop }) => (
+                    <InfiniteLoader
+                      isRowLoaded={this.isRowLoaded}
+                      loadMoreRows={this.loadMoreRows}
+                      rowCount={data.length}
+                    >
+                      {({ onRowsRendered }) => (
+                        <AutoSizer disableHeight>
+                          {({ width }) => (
+                            <VList
+                              autoHeight
+                              height={height}
+                              isScrolling={isScrolling}
+                              onScroll={onChildScroll}
+                              overscanRowCount={2}
+                              rowCount={data.length}
+                              rowHeight={120}
+                              rowRenderer={this.renderItem}
+                              scrollTop={scrollTop}
+                              width={width}
+                              onRowsRendered={onRowsRendered}
+                            />
+                          )}
+                        </AutoSizer>
                       )}
-                    </AutoSizer>
+                    </InfiniteLoader>
                   )}
-                </InfiniteLoader>
-              )}
-            </WindowScroller>
-          )
-        }
-      </List>
-      </Spin>
+                </WindowScroller>
+              )
+            }
+          </List>
+        </Spin>
+      </div>
     );
   }
 }
