@@ -1,9 +1,15 @@
+/* eslint-disable no-plusplus */
 import React from 'react';
-import { Icon, List } from 'antd';
+import { Icon, List, Spin, Empty } from 'antd';
 import { Link } from 'react-router-dom';
+import WindowScroller from 'react-virtualized/dist/commonjs/WindowScroller';
+import VList from 'react-virtualized/dist/commonjs/List';
+import InfiniteLoader from 'react-virtualized/dist/commonjs/InfiniteLoader';
+import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 import axios from '../../axios';
 import './index.scss';
 
+const STATUS_LOADING = 1;
 
 const IconText = ({ type, text }) => (
   <span>
@@ -13,7 +19,6 @@ const IconText = ({ type, text }) => (
 );
 
 export default class Keep extends React.Component {
-
   state = {
     data: [],
     loading: false,
@@ -22,50 +27,57 @@ export default class Keep extends React.Component {
       pageSize: 10,
       current: 1,
     },
+    loadedRowsMap: {},
   }
 
-  render() {
+  isRowLoaded = ({ index }) => {
+    const { loadedRowsMap } = this.state;
+    return !!loadedRowsMap[index];
+  }
+
+  renderItem = ({ index, key, style }) => {
+    const { data } = this.state;
+    const item = data[index];
     return (
-      <div className="home-container main-container">
-        <List
-          itemLayout="vertical"
-          size="small"
-          loading={this.state.loading}
-          dataSource={this.state.data}
-          renderItem={item => (
-            <Link to={`/post/${item.id}`}>
-              <List.Item
-                key={item.title}
-                actions={[<IconText type="heart-o" text="0" />]}
-                extra={<div className="item-cover" style={{ backgroundImage: `url(${item.cover})` }} />}
-              >
-                <List.Item.Meta
-                  title={item.title}
-                  description={
-                    (
-                      <div>
-                        <span className="item-category">前端</span>
-                        <span>·</span>
-                        <span className="item-time">一小时前</span>
-                      </div>
-                    )
-                  }
-                />
-              </List.Item>
-            </Link>
-          )
-          }
-        />
-      </div>
+      <Link to={`/post/${item.id}`} key={key}>
+        <List.Item
+          style={style}
+          key={item.id}
+          actions={[<IconText type="heart-o" text="0" />]}
+          extra={<div className="item-cover" style={{ backgroundImage: `url(${item.cover})` }} />}
+        >
+          <List.Item.Meta
+            title={item.title}
+            description={
+              (
+                <div>
+                  <span className="item-category">前端</span>
+                  <span>·</span>
+                  <span className="item-time">一小时前</span>
+                </div>
+              )
+            }
+          />
+        </List.Item>
+      </Link>
     );
   }
 
-  componentDidMount() {
+  loadMoreRows = ({ startIndex, stopIndex }) => {
+    console.log(startIndex, stopIndex);
+    const { loadedRowsMap, pagination } = this.state;
+    pagination.current += pagination.current;
+    for (let i = startIndex; i <= stopIndex; i++) {
+      loadedRowsMap[i] = STATUS_LOADING;
+    }
+    this.setState({ pagination });
     this.handleFecthData();
   }
 
+
   handleFecthData() {
     const { pagination } = this.state;
+    let { data } = this.state;
     this.setState({ loading: true });
     axios.get('post', {
       params: {
@@ -74,13 +86,61 @@ export default class Keep extends React.Component {
       },
     }).then((res) => {
       pagination.total = res.data.count;
+      data = data.concat(res.data.list.map((item) => {
+        return item;
+      }));
       this.setState({
-        data: res.data.list.map((item) => {
-          return item;
-        }),
+        data,
         pagination,
         loading: false,
       });
     });
+  }
+
+  componentDidMount() {
+    this.handleFecthData();
+  }
+
+  render() {
+    const { data, loading } = this.state;
+    return (
+      <Spin spinning={this.state.loading}>
+      <List>
+        {
+          data.length > 0 && (
+            <WindowScroller>
+              {({ height, isScrolling, onChildScroll, scrollTop }) => (
+                <InfiniteLoader
+                  isRowLoaded={this.isRowLoaded}
+                  loadMoreRows={this.loadMoreRows}
+                  rowCount={data.length}
+                >
+                  {({ onRowsRendered }) => (
+                    <AutoSizer disableHeight>
+                      {({ width }) => (
+                        <VList
+                          autoHeight
+                          height={height}
+                          isScrolling={isScrolling}
+                          onScroll={onChildScroll}
+                          overscanRowCount={2}
+                          rowCount={data.length}
+                          rowHeight={100}
+                          rowRenderer={this.renderItem}
+                          scrollTop={scrollTop}
+                          width={width}
+                          onRowsRendered={onRowsRendered}
+                        />
+                      )}
+                    </AutoSizer>
+                  )}
+                </InfiniteLoader>
+              )}
+            </WindowScroller>
+          )
+        }
+      </List>
+      </Spin>
+    );
   }
 }

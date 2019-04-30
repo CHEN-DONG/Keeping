@@ -16,7 +16,8 @@
     "react-dom": "^16.8.3",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.5",
-    "react-simplemde-editor": "^4.0.0"
+    "react-simplemde-editor": "^4.0.0",
+    "react-virtualized": "^9.21.0"
   },
   "devDependencies": {
     "eslint-config-airbnb": "^17.1.0",
