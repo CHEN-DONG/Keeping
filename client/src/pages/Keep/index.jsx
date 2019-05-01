@@ -52,9 +52,9 @@ export default class Keep extends React.Component {
             description={
               (
                 <div>
-                  <span className="item-category">前端</span>
+                  <span className="item-category">to do</span>
                   <span>·</span>
-                  <span className="item-time">一小时前</span>
+                  <span className="item-time">to do</span>
                 </div>
               )
             }
