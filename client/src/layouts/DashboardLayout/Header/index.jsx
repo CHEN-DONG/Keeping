@@ -1,9 +1,7 @@
 import React from 'react';
-import { Avatar, Row, Input, Menu, Icon, Button, message } from 'antd';
+import { Row, Button, message } from 'antd';
 import { Link, withRouter } from 'react-router-dom';
 import axios from '../../../axios.js';
-
-const Search = Input.Search;
 
 class Header extends React.Component {
   render() {
@@ -11,7 +9,7 @@ class Header extends React.Component {
       <header className="header-container">
         <Row className="header" type="flex" justify="space-between" align="middle">
           <div className="left-content">
-            <h3>DASHBOARD</h3>
+            <Link to="/"><h3>Keep</h3></Link>
           </div>
           <Row className="right-content" type="flex" align="middle">
             <Button onClick={this.handleLogout}>注销</Button>

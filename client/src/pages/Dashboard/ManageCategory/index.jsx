@@ -90,7 +90,7 @@ export default class ManageCategory extends React.Component {
               >
                 <div>
                   {
-                    this.state.filePath ? <img src={this.state.filePath} alt="" /> : (
+                    this.state.filePath ? <img src={this.state.filePath} className="upload-img" alt="" /> : (
                       <div>
                         <p className="ant-upload-drag-icon">
                           <Icon type="inbox" />
