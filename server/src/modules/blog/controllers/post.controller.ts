@@ -22,4 +22,12 @@ export class PostController {
 		});
 		return createResult(result);
   }
+
+  @Get(':id')
+	public async getPostDetail(@Param('id') id: any) {
+		const result = await this.postRepository.findOne(id, {
+			relations: ["categories"],
+		});
+		return createResult(result);
+	}
 }
