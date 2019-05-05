@@ -14,7 +14,7 @@ export default class KeepLayout extends React.Component {
         <Header />
         <Switch>
           <Route path="/category" component={Category} />
-          <Route path="/search/:query" component={Search} />
+          <Route path="/search/:type/:query" component={Search} />
           <Route path="/post/:id" component={PostDetail} />
           <Route path="/" component={Keep} />
         </Switch>

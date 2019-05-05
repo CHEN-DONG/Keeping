@@ -1,9 +1,9 @@
-import { Body, Controller, Delete, Get, Param, Post, Query, Put, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Query, Put, UseGuards, ParseIntPipe, Request } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import _ from "lodash";
 import { PostEntity } from "../entities/post.entity";
-import { LocalGuard } from "../../../guards/local.guard";
+import { POST_SEARCH_TYPE } from "../../../enums/post-search-type.enum";
 import { createResult } from 'src/common/utils';
 import { CommonService } from "src/common/common.service";
 
@@ -14,6 +14,25 @@ export class PostController {
     private readonly postRepository: Repository<PostEntity>,
     private readonly commonService: CommonService
   ) { }
+
+  @Get('search')
+	public async searchPost(@Query('type', new ParseIntPipe()) type: any, @Query('query') query: any, @Request() request: any) {
+    console.log(123);
+    const { pageSize = 10, pageNumber = 1 } = request.query;
+    let where = "";
+    let whereQuery = {};
+    if(type === POST_SEARCH_TYPE.CATEGORY){
+      where = "category.id = :id";
+      whereQuery = {id: query}
+    }
+    return await this.postRepository
+    .createQueryBuilder('post')
+    .leftJoinAndSelect('post.categories', 'category')
+    .where(where ,whereQuery)
+    .skip((pageNumber - 1) * pageSize)
+    .take(pageSize)
+    .getMany();
+	}
 
   @Get()
   public async getPost(@Query() query: any) {
@@ -29,5 +48,6 @@ export class PostController {
 			relations: ["categories"],
 		});
 		return createResult(result);
-	}
+  }
+
 }

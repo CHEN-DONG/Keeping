@@ -1,7 +1,7 @@
 import { Injectable, Inject, Delete } from "@nestjs/common";
 import { InjectEntityManager } from "@nestjs/typeorm";
 import { REQUEST } from '@nestjs/core';
-import { EntityManager } from "typeorm";
+import { EntityManager, getManager } from "typeorm";
 import { Request } from 'express';
 
 @Injectable()
@@ -55,4 +55,5 @@ export class CommonService {
     };
 		return await this.entityManager.update(entity, id, data); 
 	}
+	
 }

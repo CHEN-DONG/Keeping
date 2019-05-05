@@ -1,5 +1,6 @@
 import React from 'react';
-import { Card, Row, Empty } from 'antd';
+import { Card, Row, Col, Empty } from 'antd';
+import { Link } from 'react-router-dom';
 import CoverImage from '../../../components/CoverImage';
 import axios from '../../../axios';
 import './index.scss';
@@ -20,23 +21,25 @@ export default class Category extends React.Component {
               {
                 this.state.data.map((item, index) => {
                   return (
-                    <Card key={index}
-                      className="category-card"
-                      cover={<CoverImage src={item.cover} />}
-                      hoverable
-                    >
-                      <Meta
-                        title={item.name}
-                        description={item.des}
-                      />
-                    </Card>
+                    <Link to={`search/category/${item.id}`} key={index}>
+                      <Card key={index}
+                        className="category-card"
+                        cover={<CoverImage src={item.cover} />}
+                        hoverable
+                      >
+                        <Meta
+                          title={item.name}
+                          description={item.des}
+                        />
+                      </Card>
+                    </Link>
                   );
                 })
               }
             </Row>
           ) : (
-            <Empty />
-          )
+              <Empty />
+            )
         }
       </div>
     );
