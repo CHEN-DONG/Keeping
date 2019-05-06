@@ -1,6 +1,7 @@
 import React from 'react';
 import { Avatar, Row, Input, Menu, Icon } from 'antd';
 import { Link, withRouter } from 'react-router-dom';
+import emoji from 'node-emoji';
 import './index.scss';
 
 const Search = Input.Search;
@@ -10,17 +11,17 @@ class Header extends React.Component {
     {
       name: '首页',
       path: '/',
-      icon: 'home',
+      icon: ':cat:',
     },
     {
       name: '分类',
       path: '/category',
-      icon: 'profile',
+      icon: ':dog:',
     },
     {
       name: '反馈',
       path: '/feedback',
-      icon: 'message',
+      icon: ':horse:',
     },
   ]
 
@@ -47,7 +48,7 @@ class Header extends React.Component {
                   return (
                     <Menu.Item key={index}>
                       <Link to={item.path}>
-                        <Icon type={item.icon} />
+                        { emoji.get(item.icon) }
                         {item.name}
                       </Link>
                     </Menu.Item>
