@@ -28,7 +28,7 @@ export default class Keep extends React.Component {
       current: 1,
     },
     loadedRowsMap: {},
-    search: {}
+    search: {},
   }
 
   isRowLoaded = ({ index }) => {
@@ -86,8 +86,8 @@ export default class Keep extends React.Component {
       params: {
         pageSize: pagination.pageSize,
         pageNumber: pagination.current,
-        type: 1,
-        query: 1,
+        type,
+        query,
       },
     }).then((res) => {
       data = data.concat(res.data.map((item) => {
@@ -98,6 +98,18 @@ export default class Keep extends React.Component {
         loading: false,
       });
     });
+  }
+
+  componentWillReceiveProps(props) {
+    this.setState({
+      data: [],
+      pagination: {
+        total: 0,
+        pageSize: 10,
+        current: 1,
+      },
+      search: props.match.params,
+    }, this.handleFecthData);
   }
 
   componentDidMount() {

@@ -16,14 +16,17 @@ export class PostController {
   ) { }
 
   @Get('search')
-	public async searchPost(@Query('type', new ParseIntPipe()) type: any, @Query('query') query: any, @Request() request: any) {
-    console.log(123);
+	public async searchPost(@Query('type') type: POST_SEARCH_TYPE, @Query('query') query: any, @Request() request: any) {
     const { pageSize = 10, pageNumber = 1 } = request.query;
     let where = "";
     let whereQuery = {};
     if(type === POST_SEARCH_TYPE.CATEGORY){
       where = "category.id = :id";
-      whereQuery = {id: query}
+      whereQuery = {id: query};
+    }
+    if(type === POST_SEARCH_TYPE.ALL){
+      where = "post.title LIKE :title OR post.content LIKE :content";
+      whereQuery = {title: `%${query}%`, content: `%${query}%`};
     }
     return await this.postRepository
     .createQueryBuilder('post')

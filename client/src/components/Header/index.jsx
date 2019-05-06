@@ -77,7 +77,7 @@ class Header extends React.Component {
   }
 
   handleSearch = (val) => {
-    this.props.history.push(`/search/${val}`);
+    this.props.history.push(`/search/all/${val}`);
   }
 }
 

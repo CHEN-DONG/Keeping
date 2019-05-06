@@ -1,7 +1,7 @@
 export enum POST_SEARCH_TYPE {
-  CATEGORY = 1,
-  TITLE = 2,
-  CONTENT = 3,
-  BRIEF = 4,
-  TITLE_AND_CONTENT = 5
+  CATEGORY = 'category',
+  TITLE = 'title',
+  CONTENT = 'content',
+  BRIEF = 'brief',
+  ALL = 'all'
 }
