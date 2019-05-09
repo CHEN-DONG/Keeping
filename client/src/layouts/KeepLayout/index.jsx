@@ -4,7 +4,7 @@ import Keep from '../../pages/Keep';
 import Category from '../../pages/Keep/Category';
 import PostDetail from '../../pages/Keep/PostDetial';
 import Search from '../../pages/Keep/Search';
-import Login from '../../pages/Common/Login';
+import About from '../../pages/Keep/About';
 import Header from '../../components/Header';
 
 export default class KeepLayout extends React.Component {
@@ -16,6 +16,7 @@ export default class KeepLayout extends React.Component {
           <Route path="/category" component={Category} />
           <Route path="/search/:type/:query" component={Search} />
           <Route path="/post/:id" component={PostDetail} />
+          <Route path="/about" component={About} />
           <Route path="/" component={Keep} />
         </Switch>
       </div>

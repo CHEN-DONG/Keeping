@@ -19,8 +19,8 @@ class Header extends React.Component {
       icon: ':dog:',
     },
     {
-      name: '反馈',
-      path: '/feedback',
+      name: 'Me',
+      path: '/about',
       icon: ':horse:',
     },
   ]
