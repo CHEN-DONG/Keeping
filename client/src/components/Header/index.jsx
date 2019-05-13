@@ -20,7 +20,7 @@ class Header extends React.Component {
     },
     {
       name: 'Me',
-      path: '/about',
+      path: '/about#/step1',
       icon: ':horse:',
     },
   ]
