@@ -66,6 +66,25 @@ export default class About extends React.Component {
               </ul>
             </div>
           </Step>
+          <Step id="step4"
+            className="step slide"
+            data={{
+              x: 0,
+              y: -1500,
+              rotate: -90,
+              scale: 5,
+            }}
+          >
+            <h1>#4</h1>
+            <h2>
+            可以通过以下方式一起交流：
+            </h2>
+            {emoji.get(':muscle:')}
+            <p>We can communicate together in the following ways:</p>
+            <div className="skill">
+              <h3>github：https://github.com/CHEN-DONG</h3>
+            </div>
+          </Step>
         </Impress>
       </div>
     );
