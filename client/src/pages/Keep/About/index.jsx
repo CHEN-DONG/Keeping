@@ -1,5 +1,6 @@
 import React from 'react';
 import emoji from 'node-emoji';
+import { Icon } from 'antd';
 import { Impress, Step } from 'react-impressjs';
 
 import './index.scss';
@@ -72,17 +73,24 @@ export default class About extends React.Component {
               x: 0,
               y: -1500,
               rotate: -90,
-              scale: 5,
             }}
           >
             <h1>#4</h1>
             <h2>
-            可以通过以下方式一起交流：
+              可以通过以下方式一起交流：
             </h2>
             {emoji.get(':muscle:')}
             <p>We can communicate together in the following ways:</p>
-            <div className="skill">
-              <h3>github：https://github.com/CHEN-DONG</h3>
+            <div className="link">
+              <div className="link-item">
+                <Icon type="github" className="link-icon" />
+                <a href="https://github.com/CHEN-DONG" target="_blank" rel="noopener noreferrer">https://github.com/CHEN-DONG</a>
+              </div>
+              <div className="link-item">
+                <Icon type="wechat" className="link-icon" />
+                <span>xcd1117668</span>
+              </div>
+
             </div>
           </Step>
         </Impress>
