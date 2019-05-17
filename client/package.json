@@ -16,10 +16,12 @@
     "react-app-rewired": "^2.1.0",
     "react-dom": "^16.8.3",
     "react-impressjs": "^1.1.0",
+    "react-redux": "^7.0.3",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.5",
     "react-simplemde-editor": "^4.0.0",
-    "react-virtualized": "^9.21.0"
+    "react-virtualized": "^9.21.0",
+    "redux": "^4.0.1"
   },
   "devDependencies": {
     "eslint-config-airbnb": "^17.1.0",
