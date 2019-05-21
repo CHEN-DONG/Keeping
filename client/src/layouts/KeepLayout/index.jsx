@@ -6,12 +6,13 @@ import PostDetail from '../../pages/Keep/PostDetial';
 import Search from '../../pages/Keep/Search';
 import About from '../../pages/Keep/About';
 import Header from '../../components/Header';
+import HeaderSearch from '../../containers/HeaderSearch';
 
 export default class KeepLayout extends React.Component {
   render() {
     return (
       <div>
-        <Header />
+        <HeaderSearch />
         <Switch>
           <Route path="/category" component={Category} />
           <Route path="/search/:type/:query" component={Search} />
