@@ -28,7 +28,7 @@ export class UploadController {
 			},
 		}),
 	}))
-	async uploade(@UploadedFile() file) {
+	async upload(@UploadedFile() file) {
 		file.path = `${APP_CONFIG.appHost}/${file.path.split(sep).join('/')}`;
 		return file;
 	}

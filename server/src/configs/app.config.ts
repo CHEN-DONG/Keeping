@@ -22,6 +22,11 @@ const {
     LOCAL_USERNAME_FIELD,
 
     UPLOAD_PATH_IMAGE,
+
+    QINIU_HOST,
+    QINIU_BUCKET,
+    QINIU_ACCESS_KEY,
+    QINIU_SECRET_KEY,
   },
 } = process;
 
@@ -46,4 +51,9 @@ export const APP_CONFIG = {
   localUsernameField: LOCAL_USERNAME_FIELD,
 
   uploadImagePath: UPLOAD_PATH_IMAGE,
+
+  qiniuHost: QINIU_HOST,
+  qiniuBucket:QINIU_BUCKET,
+  qiniuAccessKey:QINIU_ACCESS_KEY,
+  qiniuSecretKey: QINIU_SECRET_KEY,
 };
