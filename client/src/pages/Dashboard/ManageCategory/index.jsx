@@ -197,9 +197,8 @@ export default class ManageCategory extends React.Component {
   }
 
   normFile = (e) => {
-    console.log('11');
-    this.setState({ filePath: e.file.response ? e.file.response.path : null });
-    return e.file.response && e.file.response.path;
+    this.setState({ filePath: e.file.response ? e.file.response : null });
+    return e.file.response;
   }
 
   handleUpload = ({

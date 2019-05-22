@@ -1,11 +1,13 @@
 import { Body, Controller, Delete, Get, Param, Post, Query, Put, UseGuards, Req, UseInterceptors, UploadedFile, Res } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { Response } from 'express';
+import { FileInterceptor } from '@nestjs/platform-express'
+import { Response, Request} from 'express';
 import * as qiniu from "qiniu";
 import { CommonService } from "src/common/common.service";
 import { APP_CONFIG } from '../../../configs/app.config';
 import { createResult } from "src/common/utils";
+import * as stream from "stream";
 
 const bucket = APP_CONFIG.qiniuBucket;
 const accessKey = APP_CONFIG.qiniuAccessKey;
@@ -26,19 +28,24 @@ export class QiniuController {
     private readonly commonService: CommonService
   ) { }
 
-  @Post()
-  upload(@Res() res: Response) {
-    var localFile =`${process.cwd()}/public/images/Group9.png`;
-    var formUploader = new qiniu.form_up.FormUploader(config);
-    var putExtra = new qiniu.form_up.PutExtra();
-    formUploader.putFile(uploadToken, null, localFile, putExtra, function (respErr,
+  @Post('upload')
+  @UseInterceptors(FileInterceptor('file'))
+  upload(@UploadedFile() file, @Res() res: Response, @Body() body) {
+    // 将buffer转为流
+    const bufferStream = new stream.PassThrough();
+    bufferStream.end(file.buffer);
+
+    const formUploader = new qiniu.form_up.FormUploader(config);
+    const putExtra = new qiniu.form_up.PutExtra();
+
+    formUploader.putStream(uploadToken, null, bufferStream, putExtra, function (respErr,
       respBody, respInfo) {
       if (respErr) {
         throw respErr;
       }
       if (respInfo.statusCode == 200) {
         const { key } = respBody;
-        res.send(createResult(key));
+        res.send(createResult(`${APP_CONFIG.qiniuHost}/${key}`));
       } else {
         console.log(respInfo.statusCode);
         console.log(respBody);

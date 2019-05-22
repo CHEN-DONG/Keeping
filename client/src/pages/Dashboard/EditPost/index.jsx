@@ -60,7 +60,7 @@ class EditPost extends React.Component {
             label="背景图"
             name="file"
             customRequest={this.handleUpload}
-            action="/upload"
+            action="/qiniu/upload"
             accept="image/*"
             showUploadList={false}
             getValueFromEvent={this.normFile}
@@ -111,8 +111,8 @@ class EditPost extends React.Component {
   }
 
   normFile = (e) => {
-    this.setState({ filePath: e.file.response ? e.file.response.path : null });
-    return e.file.response && e.file.response.path;
+    this.setState({ filePath: e.file.response ? e.file.response : null });
+    return e.file.response;
   }
 
   hanldeFilter = (input, option) => {
